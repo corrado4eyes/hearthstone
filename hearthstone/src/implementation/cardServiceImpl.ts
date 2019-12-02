@@ -1,7 +1,9 @@
 import CardService from "../services/cardService";
 import Card from "../model/card";
 import cards from "../assets/cards.json";
+import { injectable } from "inversify";
 
+@injectable()
 export default class CardsServiceImpl implements CardService {
 
     save(card: Card): Promise<boolean> {
@@ -15,11 +17,16 @@ export default class CardsServiceImpl implements CardService {
     }
 
     private readonly readCards = (): any => {
-        let data = {};
+        let data: any[] = [];
         let obj = cards;
-        for(let card in obj) {
-            console.log(card)
-            return -1
+        for(let type in obj) {
+            if(type === "Basic"){
+                for(let card in obj[type]){
+                    const cardObj: Card = obj[type][card];
+                    data = [...data, cardObj]
+                }
+            }
         }
+        return data;
     }
 }
