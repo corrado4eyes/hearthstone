@@ -20,7 +20,7 @@
     "jsx": "react",
     "outDir": "dist/",
     "noImplicitAny": true,
-
+    "experimentalDecorators": true,
   },
   "include": [
     "./src/**/*",
