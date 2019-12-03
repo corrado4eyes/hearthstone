@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../styles/index.css';
-import App from './app';
+import './styles/index.css';
+import App from './uiComponents/app';
 import "reflect-metadata";
 import * as Inversify from "inversify-react";
-import container from '../../config/inversify';
-import { configureStore } from '../redux/store/storeConfig';
+import container from '../config/inversify';
+import { configureStore } from './redux/store/storeConfig';
 import * as Redux from "react-redux";
 
 const store = configureStore(container);
