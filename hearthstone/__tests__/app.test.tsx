@@ -1,6 +1,6 @@
 import React from 'react';
 import ConnectedApp, {App} from '../src/App';
-import {shallow, ShallowWrapper} from 'enzyme'
+import {shallow, mount, ShallowWrapper, ReactWrapper} from 'enzyme'
 import { dummyCardArray } from './__mocks__/mockObjects';
 import Card from '../src/model/card';
 import { RootState, initialState } from '../src/redux/reducers/mainReducer';
@@ -23,6 +23,10 @@ describe('App', () => {
                 component.setState({cards: cards})
                 expect(component).toMatchSnapshot();
         });
+
+        it('fires dispatchSyncCard onComponentDidMount', () => {
+            expect(dispatchSyncCard).toHaveBeenCalledTimes(1);
+        });
     });
 
     describe('App(connected)', () => {
@@ -32,7 +36,7 @@ describe('App', () => {
         state.card.cards = dummyCardArray;
         state.card.cardSet = cardSet
         const store = generateMockStore(state)
-        const component: ShallowWrapper = shallow(<Provider store={store}><ConnectedApp cardSet={cardSet}/></Provider>);
+        const component: ReactWrapper = mount(<Provider store={store}><ConnectedApp cardSet={cardSet}/></Provider>);
         it('checks the props', () => {
             expect(component.find(App).prop('cards')).toBe(dummyCardArray)
         });
