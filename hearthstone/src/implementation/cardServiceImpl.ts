@@ -19,12 +19,14 @@ export default class CardsServiceImpl implements CardService {
 
     private readonly readCards = (): Card[] => {
         let data: Card[] = [];
-        let obj = cards;
+        let obj: any = cards;
         for(let type in obj) {
-            if(type === "Basic"){
+            if(obj.hasOwnProperty(type)){
                 for(let card in obj[type]){
-                    const cardObj: Card = obj[type][card];
-                    data = [...data, cardObj]
+                    if(obj[type].hasOwnProperty(card)) {
+                        const cardObj: Card = obj[type][card];
+                        data = [...data, cardObj]
+                    }
                 }
             }
         }
