@@ -1,12 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App Snapshot testing 1`] = `
-<Fragment>
-  <div
-    className="card"
-    key="what a dummy card!"
+<Container
+  fluid={false}
+>
+  <ForwardRef
+    noGutters={false}
   >
-    corrado4eyes
-  </div>
-</Fragment>
+    <Col
+      className="card"
+      key="what a dummy card!"
+      md="4"
+    >
+      <Image
+        fluid={false}
+        rounded={false}
+        roundedCircle={false}
+        src="http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png"
+        thumbnail={false}
+      />
+    </Col>
+  </ForwardRef>
+</Container>
 `;
