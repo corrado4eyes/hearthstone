@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Snapshot testing 1`] = `
+<Fragment>
+  <div
+    className="card"
+    key="what a dummy card!"
+  >
+    corrado4eyes
+  </div>
+</Fragment>
+`;
