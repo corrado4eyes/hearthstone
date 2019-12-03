@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App Snapshot testing 1`] = `
+exports[`App App(unconnected) Snapshot testing 1`] = `
 <Container
   fluid={false}
 >
