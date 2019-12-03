@@ -1,33 +1,32 @@
 import React from 'react';
 import './App.css';
-import ServiceFactory from './services/serviceFactory';
 import Card from './model/card';
-import inversifyContainer from '../config/inversify';
 import {Container, Row, Col, Image} from 'react-bootstrap';
+import {dispatchSyncCard} from '../src/redux/actions/cardActions'
+import {RootState} from './redux/reducers/mainReducer';
+import { bindActionCreators } from 'redux';
+import {connect} from "react-redux";
 
-const serviceFactory = new ServiceFactory(inversifyContainer);
-
-interface State {
-    cards: any[]
+interface StateProps {
+    cards: Card[]
 }
 
-interface Props{}
-class App extends React.PureComponent<Props, State> {
-constructor(props: Props){
-      super(props)
-      this.state = {
-        cards: []
-      }
-    }
+interface ActionProps {
+    dispatchSyncCard: typeof dispatchSyncCard;
+}
 
-    getData = (): any => {
-        return serviceFactory.getCardService().getAll()
-        .then((cards: Card[]) => this.setState({cards: cards}))
-        .catch((error: any) => {return error});
-    }
+const mapStateToProps = ({card}: RootState) => {
+    return{cards: card.cards}
+};
 
+const mapDispatchToProps = (dispatch: any) => {
+    return bindActionCreators({dispatchSyncCard}, dispatch);
+}
+type Props = StateProps & ActionProps;
+export class App extends React.PureComponent<Props, {}> {
+    
     componentDidMount(){
-      this.getData()
+        this.props.dispatchSyncCard()
     }
 
     render(){
@@ -35,7 +34,7 @@ constructor(props: Props){
             <Container>
                 <Row>
                     {
-                        this.state.cards.map((el: Card) => {
+                        this.props.cards.filter((el: Card) => el.cardSet === "Basic").map((el: Card) => {
                             return (el.img || el.imgGold) ? (
                                 <Col key={el.cardId} className='card' md="4">
                                     <Image src={el.img}/>
@@ -49,4 +48,4 @@ constructor(props: Props){
     }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
