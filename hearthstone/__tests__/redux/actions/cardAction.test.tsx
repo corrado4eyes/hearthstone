@@ -4,9 +4,7 @@ import { MockStore } from 'redux-mock-store';
 import CardService from '../../../src/services/cardService';
 import ServiceFactory from '../../../src/services/serviceFactory';
 import { spyRejects, spyResolves } from '../../testUtils/promiseUtils';
-import { dummyCardArray } from '../../__mocks__/mockObjects';
-
-const cardNotFoundError = "Cards not Found!";
+import { dummyCardArray, cardNotFoundError } from '../../__mocks__/mockObjects';
 
 const mockCardServiceFailure = (error?: any): CardService => {
     return {
