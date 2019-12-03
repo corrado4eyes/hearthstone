@@ -1,26 +1,46 @@
 import React from 'react';
 import './App.css';
-import "reflect-metadata";
 import ServiceFactory from './services/serviceFactory';
-import * as Inversify from "inversify-react";
+import Card from './model/card';
 import container from '../config/inversify';
 
 const serviceFactory = new ServiceFactory(container);
 
-const App: React.FC = () => {
-  return (
-    <Inversify.Provider container={container}>
-        <div className="App">
-          {getData()}
-        </div>
-    </Inversify.Provider>
-  );
+
+interface State {
+    cards: any[]
 }
 
-const getData = () => {
-  return serviceFactory.getCardService().getAll()
-  .then((value: any) => console.log(value))
-  .catch((error: any) => console.log("dio cane"))
+interface Props{}
+class App extends React.PureComponent<Props, State> {
+constructor(props: Props){
+      super(props)
+      this.state = {
+        cards: []
+      }
+    }
+
+    getData = (): any => {
+        return serviceFactory.getCardService().getAll()
+        .then((cards: Card[]) => this.setState({cards: cards}))
+        .catch((error: any) => {return error});
+    }
+
+    componentDidMount(){
+      this.getData()
+    }
+
+    render(){
+        return (
+            <>
+                {this.state.cards.forEach((el: Card) => {
+                  <div key={el.cardId}>
+                    {el.name}
+                  </div>
+                })}
+            </>
+        );
+    }
 }
 
 export default App;
