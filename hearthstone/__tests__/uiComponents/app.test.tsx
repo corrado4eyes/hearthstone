@@ -1,5 +1,5 @@
 import React from 'react';
-import ConnectedApp, {App} from '../../src/uiComponents/App';
+import ConnectedApp, {App} from '../../src/uiComponents/app';
 import {shallow, mount, ShallowWrapper, ReactWrapper} from 'enzyme'
 import { dummyCardArray } from '../__mocks__/mockObjects';
 import Card from '../../src/model/card';

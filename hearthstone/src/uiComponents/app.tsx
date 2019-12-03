@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../styles/app.css';
 import Card from '../model/card';
 import {Container, Row, Col, Image} from 'react-bootstrap';
 import {dispatchSyncCard} from '../redux/actions/cardActions'

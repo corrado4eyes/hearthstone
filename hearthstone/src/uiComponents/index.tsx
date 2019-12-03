@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import '../styles/index.css';
+import App from './app';
 import "reflect-metadata";
 import * as Inversify from "inversify-react";
 import container from '../../config/inversify';
