@@ -37,7 +37,8 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/config/",
-      "<rootDir>/__tests__/__mocks__/"
+      "<rootDir>/__tests__/__mocks__/",
+      "<rootDir>/__tests__/testUtils"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
@@ -53,8 +54,7 @@
     "moduleFileExtensions": [
       "ts",
       "tsx",
-      "js",
-      "jsx"
+      "js"
     ]
   },
   "scripts": {
