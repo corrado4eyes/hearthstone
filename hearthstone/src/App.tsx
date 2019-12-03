@@ -6,7 +6,6 @@ import container from '../config/inversify';
 
 const serviceFactory = new ServiceFactory(container);
 
-
 interface State {
     cards: any[]
 }
@@ -33,11 +32,15 @@ constructor(props: Props){
     render(){
         return (
             <>
-                {this.state.cards.forEach((el: Card) => {
-                  <div key={el.cardId}>
-                    {el.name}
-                  </div>
-                })}
+                {
+                    this.state.cards.map((el: Card) => {
+                        return (
+                            <div key={el.cardId} className='card'>
+                                {el.name}
+                            </div>
+                        )
+                    })
+                }
             </>
         );
     }
