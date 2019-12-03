@@ -12,12 +12,12 @@ export default class CardsServiceImpl implements CardService {
     get(cardId: string): Promise<Card> {
         throw new Error("Method not implemented.");
     }
-    getAll(): Promise<any> {
+    getAll(): Promise<Card[]> {
         return Promise.resolve(this.readCards());
     }
 
-    private readonly readCards = (): any => {
-        let data: any[] = [];
+    private readonly readCards = (): Card[] => {
+        let data: Card[] = [];
         let obj = cards;
         for(let type in obj) {
             if(type === "Basic"){

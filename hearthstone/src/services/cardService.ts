@@ -15,5 +15,5 @@ export default interface CardService {
     /**
      * It gets all the cards in the dataset.
      */
-    getAll(): Promise<any>
+    getAll(): Promise<Card[]>
 }
