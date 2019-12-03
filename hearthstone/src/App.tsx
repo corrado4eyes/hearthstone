@@ -15,14 +15,21 @@ interface ActionProps {
     dispatchSyncCard: typeof dispatchSyncCard;
 }
 
-const mapStateToProps = ({card}: RootState) => {
-    return{cards: card.cards}
+interface OwnProps {
+    cardSet: string
+}
+
+const mapStateToProps = ({card}: RootState, ownProps: OwnProps) => {
+    return{
+        cards: card.cards,
+        cardSet: ownProps.cardSet
+    }
 };
 
 const mapDispatchToProps = (dispatch: any) => {
     return bindActionCreators({dispatchSyncCard}, dispatch);
 }
-type Props = StateProps & ActionProps;
+type Props = StateProps & ActionProps & OwnProps;
 export class App extends React.PureComponent<Props, {}> {
     
     componentDidMount(){
@@ -34,7 +41,7 @@ export class App extends React.PureComponent<Props, {}> {
             <Container>
                 <Row>
                     {
-                        this.props.cards.filter((el: Card) => el.cardSet === "Basic").map((el: Card) => {
+                        this.props.cards.filter((el: Card) => el.cardSet === this.props.cardSet).map((el: Card) => {
                             return (el.img || el.imgGold) ? (
                                 <Col key={el.cardId} className='card' md="4">
                                     <Image src={el.img}/>
