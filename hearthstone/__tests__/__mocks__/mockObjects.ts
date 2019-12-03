@@ -21,3 +21,5 @@ export const dummyCard: Card = {
 }
 
 export const dummyCardArray = [dummyCard]
+
+export const cardNotFoundError = "Cards not Found!";
