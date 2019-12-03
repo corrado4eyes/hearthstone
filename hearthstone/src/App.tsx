@@ -2,9 +2,10 @@ import React from 'react';
 import './App.css';
 import ServiceFactory from './services/serviceFactory';
 import Card from './model/card';
-import container from '../config/inversify';
+import inversifyContainer from '../config/inversify';
+import {Container, Row, Col, Image} from 'react-bootstrap';
 
-const serviceFactory = new ServiceFactory(container);
+const serviceFactory = new ServiceFactory(inversifyContainer);
 
 interface State {
     cards: any[]
@@ -31,17 +32,19 @@ constructor(props: Props){
 
     render(){
         return (
-            <>
-                {
-                    this.state.cards.map((el: Card) => {
-                        return (
-                            <div key={el.cardId} className='card'>
-                                {el.name}
-                            </div>
-                        )
-                    })
-                }
-            </>
+            <Container>
+                <Row>
+                    {
+                        this.state.cards.map((el: Card) => {
+                            return (el.img || el.imgGold) ? (
+                                <Col key={el.cardId} className='card' md="4">
+                                    <Image src={el.img}/>
+                                </Col>
+                            ) : undefined
+                        })
+                    }
+                </Row>
+            </Container>
         );
     }
 }
