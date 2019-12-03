@@ -12,7 +12,7 @@ const store = configureStore(container);
 ReactDOM.render(
     <Inversify.Provider container={container}>
         <Redux.Provider store={store}>
-            <App />
+            <App cardSet={"Basic"}/>
         </Redux.Provider>
     </Inversify.Provider>
 , document.getElementById('root'));
