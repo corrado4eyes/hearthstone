@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Card from './model/card';
+import Card from '../model/card';
 import {Container, Row, Col, Image} from 'react-bootstrap';
-import {dispatchSyncCard} from '../src/redux/actions/cardActions'
-import {RootState} from './redux/reducers/mainReducer';
+import {dispatchSyncCard} from '../redux/actions/cardActions'
+import {RootState} from '../redux/reducers/mainReducer';
 import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
 
