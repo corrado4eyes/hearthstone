@@ -2,6 +2,7 @@ import CardService from "../services/cardService";
 import Card from "../model/card";
 import cards from "../assets/cards.json";
 import { injectable } from "inversify";
+import "reflect-metadata";
 
 @injectable()
 export default class CardsServiceImpl implements CardService {
