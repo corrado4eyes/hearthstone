@@ -41,7 +41,6 @@ export class App extends React.PureComponent<Props, {}> {
     }
 
     render(){
-        console.log(this.props)
         return this.props.loading ? 
         (<Container >
             <Row className="justify-content-md-center">
