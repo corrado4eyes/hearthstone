@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card Component(unconnected) matches the snapshot 1`] = `
+<Card
+  body={false}
+  className="no-border"
+>
+  <CardImg
+    src="http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png"
+    variant="top"
+  />
+  <CardTitle>
+    corrado4eyes
+  </CardTitle>
+  <CardText>
+    Attack: NaN
+
+                  Health: NaN
+
+  </CardText>
+  <ForwardRef
+    noGutters={false}
+  >
+    <Col>
+      <Button
+        active={false}
+        disabled={false}
+        id="switchImg"
+        onClick={[Function]}
+        type="button"
+        variant="primary"
+      >
+        Change image
+      </Button>
+    </Col>
+    <Col>
+      <Button
+        active={false}
+        disabled={false}
+        id="favBtn"
+        onClick={[Function]}
+        type="button"
+        variant="primary"
+      >
+        Add to Favourites
+      </Button>
+    </Col>
+  </ForwardRef>
+</Card>
+`;
