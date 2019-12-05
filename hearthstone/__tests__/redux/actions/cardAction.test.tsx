@@ -36,26 +36,17 @@ describe('Card Actions', () => {
     afterAll(() => {
         spy.mockRestore();
     });
-
-    beforeEach(() => {
-        spy.mockClear();
-        store = generateMockStore({});
-        store.clearActions();
-    });
-
     describe('onSyncCard Action', () => {
         beforeEach(async () => {
+            spy.mockClear();
+            store = generateMockStore({});
+            store.clearActions();
             await store.dispatch(fromCard.dispatchSyncCard())
         });
         describe('onSyncCardSucceeded', () => {
             beforeAll(() => {
                 jest.resetModules();
                 spy = serviceSetup(mockCardServiceSuccess(dummyCardArray));
-            });
-
-            beforeEach(() => {
-                spy.mockClear();
-                store.dispatch(fromCard.dispatchSyncCard());
             });
 
             it("creates the right payload", () => {
@@ -75,10 +66,6 @@ describe('Card Actions', () => {
             beforeAll(() => {
                 jest.resetModules();
                 spy = serviceSetup(mockCardServiceFailure(cardNotFoundError))
-            });
-            beforeEach(() => {
-                spy.mockClear();
-                store.dispatch(fromCard.dispatchSyncCard());
             });
 
             it("creates the right payload", () => {
