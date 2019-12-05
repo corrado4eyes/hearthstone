@@ -52,6 +52,7 @@ export const onSyncCardsFailedConstructor = (error: any): onSyncCardsFailedActio
 
 export const dispatchSyncCard = (index: string | undefined = undefined) => {
     return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
+        dispatch(onSyncCardsConstructor())
         const cardService = serviceFactory.getCardService()
         cardService.getAll()
         .then((cards: Card[]) => {
