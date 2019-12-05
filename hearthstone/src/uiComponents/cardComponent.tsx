@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Image, Card, Button, Row, Col } from 'react-bootstrap';
 import CardModel from '../model/card';
-import noImg from '../assets/no-img.jpg';
+const noImg = '../assets/noImg.jpg';
 
 interface OwnProps {
     card: CardModel;
