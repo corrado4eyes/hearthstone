@@ -7,7 +7,7 @@ interface OwnProps {
     card: CardModel;
 }
 
-interface OwnState {
+export interface OwnState {
     goldImg: boolean
 }
 export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
@@ -37,10 +37,10 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
                 </Card.Text>
                 <Row>
                     <Col>
-                        <Button variant={!this.props.card.imgGold ? "danger" : "primary"} onClick={this.switchImage.bind(this)} disabled={this.props.card.img ? false : true}>Change image</Button>
+                        <Button id="switchImg" variant={!this.props.card.imgGold ? "danger" : "primary"} onClick={this.switchImage} disabled={this.props.card.img ? false : true}>Change image</Button>
                     </Col>
                     <Col>
-                        <Button onClick={this.addToFavourites.bind(this)}>Add to Favourites</Button>
+                        <Button id="favBtn" onClick={this.addToFavourites}>Add to Favourites</Button>
                     </Col>
                 </Row>
             </Card>
