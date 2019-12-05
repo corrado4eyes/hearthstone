@@ -1,14 +1,17 @@
 import React from 'react';
 import '../styles/app.css';
 import Card from '../model/card';
-import {Container, Row, Col, Image} from 'react-bootstrap';
+import {Container, Row, Col, Image, Spinner} from 'react-bootstrap';
 import {dispatchSyncCard} from '../redux/actions/cardActions'
 import {RootState} from '../redux/reducers/mainReducer';
 import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
+import { CardComponent } from './cardComponent';
+import '../styles/commonProperties.css';
 
 interface StateProps {
-    cards: Card[]
+    cards: Card[];
+    loading: boolean;
 }
 
 interface ActionProps {
@@ -16,13 +19,14 @@ interface ActionProps {
 }
 
 interface OwnProps {
-    cardSet: string
+    cardSet: string;
 }
 
 const mapStateToProps = ({card}: RootState, ownProps: OwnProps) => {
     return{
         cards: card.cards,
-        cardSet: ownProps.cardSet
+        cardSet: ownProps.cardSet,
+        loading: card.loading
     }
 };
 
@@ -37,21 +41,28 @@ export class App extends React.PureComponent<Props, {}> {
     }
 
     render(){
-        return (
-            <Container>
+        console.log(this.props)
+        return this.props.loading ? 
+        (<Container >
+            <Row className="justify-content-md-center">
+                <Col md="auto" className="vertically-centered">
+                    <Spinner animation="grow" variant="success" />
+                </Col>
+            </Row>
+        </Container>) 
+        : (<Container>
                 <Row>
                     {
                         this.props.cards.filter((el: Card) => el.cardSet === this.props.cardSet).map((el: Card) => {
                             return (el.img || el.imgGold) ? (
-                                <Col key={el.cardId} className='card' md="4">
-                                    <Image src={el.img}/>
+                                <Col key={el.cardId} className='card no-border' md="4">
+                                    <CardComponent card={el}/>
                                 </Col>
                             ) : undefined
                         })
                     }
                 </Row>
-            </Container>
-        );
+            </Container>);
     }
 }
 
