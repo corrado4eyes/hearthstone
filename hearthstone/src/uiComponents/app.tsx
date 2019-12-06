@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
 import { CardComponent } from './cardComponent';
 import '../styles/commonProperties.css';
-import { FilterBar } from './filterBar';
+import FilterBar from './filterBar';
 
 interface StateProps {
-    cards: Card[];
+    filteredCards: Card[];
     loading: boolean;
 }
 
@@ -25,7 +25,7 @@ interface OwnProps {
 
 const mapStateToProps = ({card}: RootState, ownProps: OwnProps) => {
     return{
-        cards: card.cards,
+        filteredCards: card.filteredCards,
         cardSet: ownProps.cardSet,
         loading: card.loading
     }
@@ -42,6 +42,7 @@ export class App extends React.PureComponent<Props, {}> {
     }
 
     render(){
+        const cards = this.props.filteredCards;
         return this.props.loading ? 
         (<Container >
             <Row className="justify-content-md-center">
@@ -53,14 +54,21 @@ export class App extends React.PureComponent<Props, {}> {
         : (<Container>
                 <Row><FilterBar/></Row>
                 <Row>
-                    {
-                        this.props.cards.filter((el: Card) => el.cardSet === this.props.cardSet).map((el: Card) => {
-                            return (el.img || el.imgGold) ? (
-                                <Col key={el.cardId} className='card no-border' md="4">
-                                    <CardComponent card={el}/>
+                    { 
+                        !(cards.length === 0) ?
+                            cards.map((el: Card) => {
+                                return (el.img || el.imgGold) ? (
+                                    <Col key={el.cardId} className='card no-border' md="4">
+                                        <CardComponent card={el}/>
+                                    </Col>
+                                ) : undefined
+                            })
+                            :
+                            <Row className="justify-content-md-center">
+                                <Col md="auto" className="vertically-centered">
+                                    No Results Found!
                                 </Col>
-                            ) : undefined
-                        })
+                            </Row>
                     }
                 </Row>
             </Container>);
