@@ -2,9 +2,11 @@
 
 exports[`App App(unconnected) Snapshot testing 1`] = `
 <Container
+  className="no-background"
   fluid={false}
 >
   <ForwardRef
+    className="justify-content-md-center"
     noGutters={false}
   >
     <Connect(FilterBar) />

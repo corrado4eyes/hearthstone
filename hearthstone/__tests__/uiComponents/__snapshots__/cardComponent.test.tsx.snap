@@ -24,13 +24,20 @@ exports[`Card Component(unconnected) matches the snapshot 1`] = `
     <Col>
       <Button
         active={false}
+        className="no-borders"
         disabled={false}
         id="switchImg"
         onClick={[Function]}
         type="button"
         variant="primary"
       >
-        Change image
+        <Image
+          fluid={false}
+          rounded={false}
+          roundedCircle={false}
+          src={Object {}}
+          thumbnail={false}
+        />
       </Button>
     </Col>
     <Col>
