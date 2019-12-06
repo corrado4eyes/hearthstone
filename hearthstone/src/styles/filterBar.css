@@ -5,3 +5,7 @@
 .logo:hover {
     background-image: url(../assets/hearthstone-mini-logo-shiny.png)
 }
+
+.navbar {
+    background-image: url(../assets/navBar.png);
+}
