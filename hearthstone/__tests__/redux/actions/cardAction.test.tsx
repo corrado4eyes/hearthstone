@@ -4,7 +4,7 @@ import { MockStore } from 'redux-mock-store';
 import CardService from '../../../src/services/cardService';
 import ServiceFactory from '../../../src/services/serviceFactory';
 import { spyRejects, spyResolves } from '../../testUtils/promiseUtils';
-import { dummyCardArray, cardNotFoundError } from '../../__mocks__/mockObjects';
+import { dummyCardArray, cardNotFoundError, dummyCard } from '../../__mocks__/mockObjects';
 
 const mockCardServiceFailure = (error?: any): CardService => {
     return {
@@ -81,5 +81,41 @@ describe('Card Actions', () => {
                 expect(action[1]).toEqual({type: fromCard.CardActions.onSyncCardsFailed, error: cardNotFoundError});
             });
         }); 
+    });
+
+    describe('onSubmitFilter Action', () => {
+        const cards = dummyCardArray
+        const filterKey = "cardSet"
+        const filter = "Not Dummy"
+        beforeEach(async () => {
+            spy.mockClear();
+            store = generateMockStore({});
+            store.clearActions();
+            await store.dispatch(fromCard.dispatchFilter(filter, filterKey))
+        });
+
+        it("dispatches the right action", () => {
+            const action = store.getActions();
+            expect(action.length).toBe(1);
+            expect(action[0]).toEqual({type: fromCard.CardActions.onSubmitFilter, filter, filterKey});
+        });
+
+    });
+
+    describe('onFilterByName Action', () => {
+        const cardName = dummyCard.name!
+        beforeEach(async () => {
+            spy.mockClear();
+            store = generateMockStore({});
+            store.clearActions();
+            await store.dispatch(fromCard.dispatchFilterByName(cardName))
+        });
+
+        it("dispatches the right action", () => {
+            const action = store.getActions();
+            expect(action.length).toBe(1);
+            expect(action[0]).toEqual({type: fromCard.CardActions.onFilterByName, name: cardName});
+        });
+
     });
 });

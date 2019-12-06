@@ -14,7 +14,7 @@ describe('App', () => {
         const dispatchSyncCard = jest.fn()
         const cards: Card[] = dummyCardArray
         const loading = false;
-        const component: ShallowWrapper = shallow(<App cardSet={cardSet} cards={cards} dispatchSyncCard={dispatchSyncCard} loading={loading}/>);
+        const component: ShallowWrapper = shallow(<App cardSet={cardSet} filteredCards={cards} dispatchSyncCard={dispatchSyncCard} loading={loading}/>);
         it('renders n elements in an array', () => {
             component.setState({cards: cards})
             const cardComponent = component.find(CardComponent);
@@ -35,8 +35,8 @@ describe('App', () => {
         const state: RootState = {
             ...initialState, 
         }
-        state.card.cards = dummyCardArray;
-        state.card.cardSet = cardSet
+        state.card.filteredCards = dummyCardArray;
+        state.card.filters['cardSet'] = cardSet
         state.card.loading = false
         const store = generateMockStore(state)
         const component: ReactWrapper = mount(<Provider store={store}><ConnectedApp cardSet={cardSet}/></Provider>);
@@ -47,7 +47,7 @@ describe('App', () => {
 
         
         it('checks the props', () => {
-            expect(component.find(App).prop('cards')).toBe(dummyCardArray)
+            expect(component.find(App).prop('filteredCards')).toBe(dummyCardArray)
             expect(component.find(App).prop('loading')).toBe(false)
             expect(component.find(App).prop('cardSet')).toBe(cardSet)
         });

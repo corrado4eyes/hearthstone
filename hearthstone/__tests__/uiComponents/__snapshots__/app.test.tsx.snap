@@ -2,8 +2,15 @@
 
 exports[`App App(unconnected) Snapshot testing 1`] = `
 <Container
+  className="no-background"
   fluid={false}
 >
+  <ForwardRef
+    className="justify-content-md-center"
+    noGutters={false}
+  >
+    <Connect(FilterBar) />
+  </ForwardRef>
   <ForwardRef
     noGutters={false}
   >
@@ -30,6 +37,35 @@ exports[`App App(unconnected) Snapshot testing 1`] = `
             "name": "corrado4eyes",
             "playerClass": "Human",
             "rarity": "Super Rare",
+            "text": "A dummy Italian boy",
+            "type": "Developer",
+          }
+        }
+      />
+    </Col>
+    <Col
+      className="card no-border"
+      key="what an ugly dummy card!"
+      md="4"
+    >
+      <CardComponent
+        card={
+          Object {
+            "artist": "lala",
+            "cardId": "what an ugly dummy card!",
+            "cardSet": "Not Dummy",
+            "collectible": true,
+            "cost": 9999,
+            "faction": "Splendo",
+            "flavor": "Meat",
+            "howToGet": "Ask Frits",
+            "howToGetGold": "Feeds and Walk Frits for 2 years every day (excluded the holidays)",
+            "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png",
+            "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/DS1_183_premium.gif",
+            "locale": "enUS",
+            "name": "lalala",
+            "playerClass": "Human",
+            "rarity": "Not Super Rare",
             "text": "A dummy Italian boy",
             "type": "Developer",
           }

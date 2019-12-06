@@ -9,7 +9,9 @@ export enum CardActions {
     // onStoreFailed = "onStoreFailed"
     onSyncCards = "onSyncCards",
     onSyncCardsSucceed = "onSyncCardsSucceed",
-    onSyncCardsFailed = "onSyncCardsFailed"
+    onSyncCardsFailed = "onSyncCardsFailed",
+    onSubmitFilter = "OnSubmitFilter",
+    onFilterByName = "onFilterByName"
 }
 
 export interface onSyncCardsAction extends Action {
@@ -26,9 +28,22 @@ export interface onSyncCardsFailedAction extends Action {
     error: any
 }
 
+export interface OnSubmitFilterAction extends Action {
+    type: CardActions.onSubmitFilter
+    filter: string
+    filterKey: string
+}
+
+export interface OnFilterByName extends Action {
+    type: CardActions.onFilterByName
+    name: string
+}
+
 export type CardActionsType = onSyncCardsAction |
                               onSyncCardsSucceedAction |
-                              onSyncCardsFailedAction;
+                              onSyncCardsFailedAction |
+                              OnSubmitFilterAction |
+                              OnFilterByName;
 
 export const onSyncCardsConstructor = (): onSyncCardsAction => {
     return {
@@ -50,6 +65,21 @@ export const onSyncCardsFailedConstructor = (error: any): onSyncCardsFailedActio
     }
 }
 
+export const onSubmitFilterConstructor = (filter: string, filterKey: string): OnSubmitFilterAction => {
+    return {
+        type: CardActions.onSubmitFilter,
+        filter,
+        filterKey
+    }
+}
+
+export const onFilterByNameConstructor = (name: string):OnFilterByName => {
+    return {
+        type: CardActions.onFilterByName,
+        name
+    }
+} 
+
 export const dispatchSyncCard = (index: string | undefined = undefined) => {
     return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
         dispatch(onSyncCardsConstructor())
@@ -61,5 +91,17 @@ export const dispatchSyncCard = (index: string | undefined = undefined) => {
         .catch((err: string) => {
             dispatch(onSyncCardsFailedConstructor(err))
         });
+    }
+}
+
+export const dispatchFilter = (filter: string, filterKey: string) => {
+    return (dispatch: Dispatch<CardActionsType>) => {
+        return dispatch(onSubmitFilterConstructor(filter, filterKey));
+    }
+}
+
+export const dispatchFilterByName = (name: string) => {
+    return (dispatch: Dispatch<CardActionsType>) => {
+        return dispatch(onFilterByNameConstructor(name))
     }
 }
