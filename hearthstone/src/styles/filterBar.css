@@ -1,7 +1,6 @@
 .logo {
     width: "128px";
     height: "64px";
-    transition: 1s;
 }
 .logo:hover {
     background-image: url(../assets/hearthstone-mini-logo-shiny.png)
