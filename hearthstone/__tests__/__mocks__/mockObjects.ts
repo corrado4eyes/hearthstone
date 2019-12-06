@@ -33,7 +33,7 @@ export const dummyCardUgly: Card = {
     img: "http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png",
     imgGold: "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/DS1_183_premium.gif",
     locale: "enUS",
-    name: "corrado4eyes",
+    name: "lalala",
     playerClass: "Human",
     rarity: "Not Super Rare",
     text: "A dummy Italian boy",
