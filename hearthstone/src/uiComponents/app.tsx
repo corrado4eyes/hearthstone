@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/app.css';
 import Card from '../model/card';
-import {Container, Row, Col, Image, Spinner} from 'react-bootstrap';
+import {Container, Row, Col, Spinner} from 'react-bootstrap';
 import {dispatchSyncCard} from '../redux/actions/cardActions'
 import {RootState} from '../redux/reducers/mainReducer';
 import { bindActionCreators } from 'redux';
@@ -43,37 +43,42 @@ export class App extends React.PureComponent<Props, {}> {
 
     render(){
         const cards = this.props.filteredCards;
-        return this.props.loading ? 
-        (<Container >
-            <Row className="justify-content-md-center">
-                <Col md="auto" className="vertically-centered">
-                    <Spinner animation="grow" variant="success" />
-                </Col>
-            </Row>
-        </Container>) 
-        : (<Container>
-                <Row className="justify-content-md-center">
-                    <FilterBar/>
-                </Row>
-                <Row>
-                    { 
-                        !(cards.length === 0) ?
-                            cards.map((el: Card) => {
-                                return (el.img || el.imgGold) ? (
-                                    <Col key={el.cardId} className='card no-border' md="4">
-                                        <CardComponent card={el}/>
-                                    </Col>
-                                ) : undefined
-                            })
-                            :
-                            <Row className="justify-content-md-center">
-                                <Col md="auto" className="vertically-centered">
-                                    No Results Found!
-                                </Col>
-                            </Row>
-                    }
-                </Row>
-            </Container>);
+        return (
+        <Container className="no-background">
+            {
+                this.props.loading ? 
+                    (
+                        <Row className="justify-content-md-center">
+                            <Col md="auto" className="vertically-centered">
+                                <Spinner animation="grow" variant="success" />
+                            </Col>
+                        </Row>
+                    ) 
+                : 
+                    (<>
+                        <Row className="justify-content-md-center"><FilterBar/></Row>
+                        <Row>
+                            { 
+                                !(cards.length === 0) ?
+                                    cards.map((el: Card) => {
+                                        return (el.img || el.imgGold) ? (
+                                            <Col key={el.cardId} className='card no-border' md="4">
+                                                <CardComponent card={el}/>
+                                            </Col>
+                                        ) : undefined
+                                    })
+                                    :
+                                    <Row className="justify-content-md-center">
+                                        <Col md="auto" className="vertically-centered">
+                                            No Results Found!
+                                        </Col>
+                                    </Row>
+                            }
+                        </Row>
+                    </>)
+            }
+        </Container>);
+            
     }
 }
 

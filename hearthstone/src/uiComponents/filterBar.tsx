@@ -5,6 +5,7 @@ import '../styles/filterBar.css';
 
 import logo from '../assets/hearthstone-mini-logo.png';
 import shinyLogo from '../assets/hearthstone-mini-logo-shiny.png';
+import filterBarImg from '../assets/navBar.png';
 import { CardSet } from '../model/cardSet';
 import { Rarity } from '../model/rarity';
 import {dispatchFilter, dispatchFilterByName} from '../redux/actions/cardActions';
@@ -77,7 +78,7 @@ export class FilterBar extends React.PureComponent<Props, OwnState> {
     render() {
         return(
             <Row className="justify-content-md-center" >
-                <Navbar bg="dark" expanded expand="lg" >
+                <Navbar className="navbar" bg="dark" expanded expand="lg">
                     <Col>
                         <Navbar.Brand >
                             <Image 

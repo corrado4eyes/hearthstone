@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Image, Card, Button, Row, Col } from 'react-bootstrap';
 import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
+import changeImg from '../assets/change-img-32x32.png';
+
 
 interface OwnProps {
     card: CardModel;
@@ -37,7 +39,7 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
                 </Card.Text>
                 <Row>
                     <Col>
-                        <Button id="switchImg" variant={!this.props.card.imgGold ? "danger" : "primary"} onClick={this.switchImage} disabled={this.props.card.img ? false : true}>Change image</Button>
+                        <Button id="switchImg" className="no-borders" onClick={this.switchImage} disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
                     </Col>
                     <Col>
                         <Button id="favBtn" onClick={this.addToFavourites}>Add to Favourites</Button>
