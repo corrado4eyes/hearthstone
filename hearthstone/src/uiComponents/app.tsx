@@ -52,7 +52,9 @@ export class App extends React.PureComponent<Props, {}> {
             </Row>
         </Container>) 
         : (<Container>
-                <Row><FilterBar/></Row>
+                <Row className="justify-content-md-center">
+                    <FilterBar/>
+                </Row>
                 <Row>
                     { 
                         !(cards.length === 0) ?
