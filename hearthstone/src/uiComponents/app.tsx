@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
 import { CardComponent } from './cardComponent';
 import '../styles/commonProperties.css';
+import { FilterBar } from './filterBar';
 
 interface StateProps {
     cards: Card[];
@@ -50,6 +51,7 @@ export class App extends React.PureComponent<Props, {}> {
             </Row>
         </Container>) 
         : (<Container>
+                <Row><FilterBar/></Row>
                 <Row>
                     {
                         this.props.cards.filter((el: Card) => el.cardSet === this.props.cardSet).map((el: Card) => {
