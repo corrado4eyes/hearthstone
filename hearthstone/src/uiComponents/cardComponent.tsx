@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Image, Card, Button, Row, Col } from 'react-bootstrap';
 import CardModel from '../model/card';
-const noImg = '../assets/noImg.jpg';
+import noImg from '../assets/noImg.jpg';
 
 interface OwnProps {
     card: CardModel;
@@ -28,7 +28,7 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
 
     render() {
         return(
-            <Card className="no-border">
+            <Card className="no-border text-center">
                 <Card.Img variant="top" src={(!this.state.goldImg ? this.props.card.img : this.props.card.imgGold) || noImg}/>
                 <Card.Title>{this.props.card.name}</Card.Title>
                 <Card.Text>
