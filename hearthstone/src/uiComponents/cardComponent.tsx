@@ -3,6 +3,7 @@ import { Image, Card, Button, Row, Col } from 'react-bootstrap';
 import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
+import { urlIsFound } from '../utils/utils';
 
 
 interface OwnProps {
@@ -11,12 +12,14 @@ interface OwnProps {
 
 export interface OwnState {
     goldImg: boolean
+    isImgAvailable: boolean
 }
 export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
     constructor(props: OwnProps){
         super(props)
         this.state = {
-            goldImg: false
+            goldImg: false,
+            isImgAvailable: true,
         }
     }
 
@@ -28,10 +31,30 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
         throw("Not Implemented yet.")
     }
 
+    componentDidMount = () => {
+        urlIsFound(this.props.card.img!)
+        .then((resp) => {
+            if(resp){
+                this.setState({isImgAvailable: true});
+            } else {
+                this.setState({isImgAvailable: false});
+            }
+        });
+    }
+
     render() {
         return(
             <Card className="no-border text-center">
-                <Card.Img variant="top" src={(!this.state.goldImg ? this.props.card.img : this.props.card.imgGold) || noImg}/>
+                <Card.Img variant="top" src={
+                    (this.state.isImgAvailable) ? 
+                        ((this.props.card.img) ? 
+                            (this.state.goldImg ? 
+                                this.props.card.imgGold 
+                            : this.props.card.img) 
+                        : noImg) 
+                    : noImg
+                    }
+                    />
                 <Card.Title>{this.props.card.name}</Card.Title>
                 <Card.Text>
                 {`Attack: ${this.props.card.attack || "NaN"}\n
