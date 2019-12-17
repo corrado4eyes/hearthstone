@@ -11,6 +11,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "bootstrap": "^4.4.1",
     "enzyme-to-json": "^3.4.3",
+    "es6-promise": "^4.2.8",
     "inversify-react": "^0.4.3",
     "jest": "^24.9.0",
     "node-sass": "^4.13.0",
@@ -87,6 +88,8 @@
     "html-webpack-plugin": "^3.2.0",
     "inversify": "^5.0.1",
     "inversify-inject-decorators": "^3.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "node-fetch": "^2.6.0",
     "reflect-metadata": "^0.1.13"
   }
 }

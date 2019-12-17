@@ -40,6 +40,24 @@ export const dummyCardUgly: Card = {
     type: "Developer"
 }
 
+export const noImgCard: Card = {
+    artist: "lolo",
+    cardId: "no_img_card",
+    cardSet: "no_img_cardset",
+    collectible: true,
+    cost: 9999,
+    faction: "lala",
+    flavor: "Meat",
+    howToGet: "no img",
+    howToGetGold: "have no img",
+    locale: "enUS",
+    name: "lalala",
+    playerClass: "Human",
+    rarity: "Not Super Rare",
+    text: "A dummy Italian boy",
+    type: "Developer"
+}
+
 export const dummyCardArray = [dummyCard, dummyCardUgly]
 
 export const cardNotFoundError = "Cards not Found!";
