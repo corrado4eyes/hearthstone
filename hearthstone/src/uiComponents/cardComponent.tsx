@@ -62,7 +62,10 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
                 </Card.Text>
                 <Row>
                     <Col>
-                        <Button id="switchImg" className="no-borders" onClick={this.switchImage} disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
+                        <Button id="switchImg" 
+                            className="no-borders" 
+                            onClick={this.switchImage} 
+                            disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
                     </Col>
                     <Col>
                         <Button id="favBtn" onClick={this.addToFavourites}>Add to Favourites</Button>
