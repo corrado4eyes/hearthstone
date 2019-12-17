@@ -3,7 +3,6 @@ import { dummyCard, noImgCard } from '../__mocks__/mockObjects';
 import { ShallowWrapper, shallow } from 'enzyme';
 import { CardComponent, OwnState } from '../../src/uiComponents/cardComponent';
 import { Button, Card } from 'react-bootstrap';
-import 'isomorphic-fetch';
 
 describe('Card Component(unconnected)', () => {
     const card = dummyCard;
