@@ -15,6 +15,8 @@ export interface OwnState {
     isImgAvailable: boolean
 }
 export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
+    private _isMounted = false;
+
     constructor(props: OwnProps){
         super(props)
         this.state = {
@@ -32,14 +34,21 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
     }
 
     componentDidMount = () => {
+        this._isMounted = true;
         urlIsFound(this.props.card.img!)
         .then((resp) => {
-            if(resp){
-                this.setState({isImgAvailable: true});
-            } else {
-                this.setState({isImgAvailable: false});
+            if(this._isMounted){
+                if(resp){
+                    this.setState({isImgAvailable: true});
+                } else {
+                    this.setState({isImgAvailable: false});
+                }
             }
         });
+    }
+
+    componentWillUnmount = () => {
+        this._isMounted = false
     }
 
     render() {
