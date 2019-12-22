@@ -6,7 +6,7 @@ import {dispatchSyncCard} from '../redux/actions/cardActions'
 import {RootState} from '../redux/reducers/mainReducer';
 import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
-import { CardComponent } from './cardComponent';
+import CardComponent from './cardComponent';
 import '../styles/commonProperties.css';
 import FilterBar from './filterBar';
 
