@@ -11,7 +11,10 @@ export enum CardActions {
     onSyncCardsSucceed = "onSyncCardsSucceed",
     onSyncCardsFailed = "onSyncCardsFailed",
     onSubmitFilter = "OnSubmitFilter",
-    onFilterByName = "onFilterByName"
+    onFilterByName = "onFilterByName",
+    onSaveCard = "onSaveCard",
+    onSaveCardSucceed = "onSaveCardSucceed",
+    onSaveCardFailed = "onSaveCardFailed"
 }
 
 export interface onSyncCardsAction extends Action {
@@ -39,11 +42,28 @@ export interface OnFilterByName extends Action {
     name: string
 }
 
+export interface OnSaveCardAction extends Action {
+    type: CardActions.onSaveCard
+}
+
+export interface OnSaveCardSucceedAction extends Action {
+    type: CardActions.onSaveCardSucceed
+    card: Card
+}
+
+export interface OnSaveCardFailedAction extends Action {
+    type: CardActions.onSaveCardFailed
+    error: any
+}
+
 export type CardActionsType = onSyncCardsAction |
                               onSyncCardsSucceedAction |
                               onSyncCardsFailedAction |
                               OnSubmitFilterAction |
-                              OnFilterByName;
+                              OnFilterByName |
+                              OnSaveCardAction |
+                              OnSaveCardSucceedAction |
+                              OnSaveCardFailedAction;
 
 export const onSyncCardsConstructor = (): onSyncCardsAction => {
     return {
@@ -79,6 +99,40 @@ export const onFilterByNameConstructor = (name: string):OnFilterByName => {
         name
     }
 } 
+
+export const onSaveCardConstructor = (): OnSaveCardAction => {
+    return {
+        type: CardActions.onSaveCard
+    }
+}
+
+export const onSaveCardSucceedConstructor = (card: Card): OnSaveCardSucceedAction => {
+    return {
+        type: CardActions.onSaveCardSucceed,
+        card
+    }
+}
+
+export const onSaveCardFailedConstructor = (error: any): OnSaveCardFailedAction => {
+    return {
+        type: CardActions.onSaveCardFailed,
+        error
+    }
+}
+
+export const dispatchSaveCard = (card: Card) => {
+    return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
+        dispatch(onSaveCardConstructor())
+        console.log("In action")
+        const cardService = serviceFactory.getFirebaseCardService().save(card)
+        .then(() => {
+            console.log("Stored", card)
+        })
+        .catch((err: any) => {
+            dispatch(onSaveCardFailedConstructor(err))
+        });
+    }
+}
 
 export const dispatchSyncCard = (index: string | undefined = undefined) => {
     return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
