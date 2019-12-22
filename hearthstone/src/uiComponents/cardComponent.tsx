@@ -4,6 +4,9 @@ import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
 import { urlIsFound } from '../utils/utils';
+import { dispatchSaveCard } from '../redux/actions/cardActions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 
 interface OwnProps {
@@ -14,10 +17,24 @@ export interface OwnState {
     goldImg: boolean
     isImgAvailable: boolean
 }
-export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
+
+interface ActionProps {
+    dispatchSaveCard: typeof dispatchSaveCard;
+}
+
+const mapStateToProps = () => {
+    return {}
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return bindActionCreators({dispatchSaveCard}, dispatch)
+}
+
+type Props = ActionProps & OwnProps;
+export class CardComponent extends React.PureComponent<Props, OwnState> {
     private _isMounted = false;
 
-    constructor(props: OwnProps){
+    constructor(props: Props){
         super(props)
         this.state = {
             goldImg: false,
@@ -30,7 +47,7 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
     }
 
     addToFavourites = () => {
-        throw("Not Implemented yet.")
+        this.props.dispatchSaveCard(this.props.card)
     }
 
     componentDidMount = () => {
@@ -84,3 +101,4 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
         );
     }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(CardComponent)
