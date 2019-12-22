@@ -1,3 +1,5 @@
+
 export default {
-    CardService: Symbol.for("CardService")
+    CardService: Symbol.for("CardService"),
+    FirebaseCardService: Symbol.for("FirebaseCardService")
 }
