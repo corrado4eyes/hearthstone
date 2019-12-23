@@ -1,4 +1,5 @@
 import Card from "../model/card";
+import { CardSet } from "../model/cardSet";
 
 export default interface CardService {
     /**
@@ -16,4 +17,10 @@ export default interface CardService {
      * It gets all the cards in the dataset.
      */
     getAll(): Promise<Card[]>
+
+    /**
+     * It return the card which the passed cardSet
+     * @param cardSet 
+     */
+    getByCardSet(cardSet: CardSet): Promise<Card[]>
 }
