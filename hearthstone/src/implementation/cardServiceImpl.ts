@@ -3,9 +3,14 @@ import Card from "../model/card";
 import cards from "../assets/cards.json";
 import { injectable } from "inversify";
 import "reflect-metadata";
+import { CardSet } from "../model/cardSet";
 
 @injectable()
 export default class CardsServiceImpl implements CardService {
+    
+    getByCardSet(cardSet: CardSet): Promise<Card[]> {
+        throw new Error("Method not implemented.");
+    }
 
     save(card: Card): Promise<boolean> {
         throw new Error("Method not implemented.");
