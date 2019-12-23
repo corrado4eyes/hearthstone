@@ -31,11 +31,12 @@ export const reducer = (state: State = initialState, action: CardActionsType) =>
                 loading: true
             });
         case CardActions.onSyncCardsSucceed:
-        const cardInitialState = action.cards.filter((el: Card) => el.cardSet === state.filters['cardSet'])
+        const cardState = stateCopy.cards.concat(action.cards)
+        const filteredCardState = cardState.filter((el: Card) => el.cardSet === state.filters['cardSet'])
             return Object.assign({}, state, {
                 loading: false,
-                cards: action.cards,
-                filteredCards: cardInitialState
+                cards: cardState,
+                filteredCards: filteredCardState
             });
         case CardActions.onSyncCardsFailed:
             return Object.assign({}, state, {
@@ -58,6 +59,20 @@ export const reducer = (state: State = initialState, action: CardActionsType) =>
             return Object.assign({}, state, {
                 filteredCards
             });
+        case CardActions.onSaveCardSucceed:
+            const cards = stateCopy.cards.map((card: Card) => {
+                if(card.cardId! === action.card.cardId!)
+                    return action.card
+                else
+                    return card
+            }) 
+            return Object.assign({}, stateCopy, {
+                cards: cards,
+            });
+        case CardActions.onSaveCardFailed:
+            return Object.assign({}, stateCopy, {
+                error: action.error,
+            })
         default:
             return Object.assign({}, state);
     }
