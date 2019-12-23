@@ -2,11 +2,12 @@ import { Action, Dispatch } from "redux";
 import Card from "../../model/card";
 import { RootState } from "../reducers/mainReducer";
 import { ServiceFactory } from "../../services/serviceFactory";
+import { CardSet } from "../../model/cardSet";
+import { Rarity } from "../../model/rarity";
+import { FirebaseCardService } from "../../firebase/firebaseCardService";
+import CardService from "../../services/cardService";
 
 export enum CardActions {
-    // onStore = "onStore",
-    // onStoreSucceed = "onStoreSucced",
-    // onStoreFailed = "onStoreFailed"
     onSyncCards = "onSyncCards",
     onSyncCardsSucceed = "onSyncCardsSucceed",
     onSyncCardsFailed = "onSyncCardsFailed",
@@ -33,7 +34,7 @@ export interface onSyncCardsFailedAction extends Action {
 
 export interface OnSubmitFilterAction extends Action {
     type: CardActions.onSubmitFilter
-    filter: string
+    filter: CardSet | Rarity
     filterKey: string
 }
 
@@ -85,7 +86,7 @@ export const onSyncCardsFailedConstructor = (error: any): onSyncCardsFailedActio
     }
 }
 
-export const onSubmitFilterConstructor = (filter: string, filterKey: string): OnSubmitFilterAction => {
+export const onSubmitFilterConstructor = (filter: CardSet | Rarity, filterKey: string): OnSubmitFilterAction => {
     return {
         type: CardActions.onSubmitFilter,
         filter,
@@ -123,10 +124,9 @@ export const onSaveCardFailedConstructor = (error: any): OnSaveCardFailedAction 
 export const dispatchSaveCard = (card: Card) => {
     return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
         dispatch(onSaveCardConstructor())
-        console.log("In action")
         const cardService = serviceFactory.getFirebaseCardService().save(card)
         .then(() => {
-            console.log("Stored", card)
+            dispatch(onSaveCardSucceedConstructor(card))
         })
         .catch((err: any) => {
             dispatch(onSaveCardFailedConstructor(err))
@@ -134,24 +134,59 @@ export const dispatchSaveCard = (card: Card) => {
     }
 }
 
-export const dispatchSyncCard = (index: string | undefined = undefined) => {
+export const dispatchSyncCard = (cardSet: CardSet | undefined = undefined) => {
     return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
         dispatch(onSyncCardsConstructor())
-        const cardService = serviceFactory.getCardService()
-        cardService.getAll()
-        .then((cards: Card[]) => {
-            dispatch(onSyncCardsSucceedConstructor(cards))
-        })
-        .catch((err: string) => {
-            dispatch(onSyncCardsFailedConstructor(err))
-        });
+        const cardService = serviceFactory.getFirebaseCardService()
+        if (!cardSet) {
+            cardService.getAll()
+            .then((cards: Card[]) => {
+                dispatch(onSyncCardsSucceedConstructor(cards))
+            })
+            .catch((err: any) => {
+                dispatch(onSyncCardsFailedConstructor(err))
+            });
+        } else {
+            const state = getState()
+            if(checkIfCached(cardSet, state)) {
+                dispatch(onFilterByNameConstructor(cardSet))
+            } else {
+                dispatchByCardSet(cardSet, cardService, dispatch)
+            }
+        }
     }
 }
 
-export const dispatchFilter = (filter: string, filterKey: string) => {
-    return (dispatch: Dispatch<CardActionsType>) => {
-        return dispatch(onSubmitFilterConstructor(filter, filterKey));
+export const checkIfCached = (cardSet: CardSet, state: RootState) => {
+    const card = state.card.cards.filter((card: Card) => card.cardSet === cardSet)
+    return card.length > 0 ? true : false;
+}
+
+export const dispatchFilter = (filter: CardSet | Rarity, filterKey: string) => {
+    return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
+        const cardService = serviceFactory.getFirebaseCardService()
+        const state = getState()
+        // If the filter is about the Rarity
+        if(Object.values(Rarity).includes(filter)) {
+            return dispatch(onSubmitFilterConstructor(filter, filterKey));
+        }
+        if(checkIfCached((filter as CardSet), state)) {
+            return dispatch(onSubmitFilterConstructor(filter, filterKey))
+        } else {
+            dispatchByCardSet((filter as CardSet), cardService, dispatch)
+            return dispatch(onSubmitFilterConstructor(filter, filterKey));
+        }
     }
+}
+
+export const dispatchByCardSet = (cardSet: CardSet, cardService: CardService, dispatch: Dispatch<CardActionsType>) => {
+    cardService.getByCardSet(cardSet)
+    .then((cards: Card[]) => {
+        dispatch(onSyncCardsSucceedConstructor(cards))
+    })
+    .catch((err: string) => {
+        dispatch(onSyncCardsFailedConstructor(err))
+    });
 }
 
 export const dispatchFilterByName = (name: string) => {
