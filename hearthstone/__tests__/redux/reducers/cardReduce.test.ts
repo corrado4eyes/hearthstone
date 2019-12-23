@@ -1,4 +1,4 @@
-import * as fromReducer from '../../../src/redux/reducers/cardReduces';
+import * as fromReducer from '../../../src/redux/reducers/cardReducer';
 import * as fromAction from '../../../src/redux/actions/cardActions';
 
 import { CardActionsType } from '../../../src/redux/actions/cardActions';

@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import * as fromCard from './cardReduces';
+import * as fromCard from './cardReducer';
 export interface RootState {
     card: fromCard.State
 }
