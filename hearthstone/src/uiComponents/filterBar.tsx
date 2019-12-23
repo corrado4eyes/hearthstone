@@ -64,7 +64,12 @@ export class FilterBar extends React.PureComponent<Props, OwnState> {
     }
 
     onFilterSelected = (filter: string, filterKey: string) => {
-        this.props.dispatchFilter(filter, filterKey);
+        if(Object.values(CardSet).includes(filter) || Object.values(Rarity).includes(filter)){
+            this.props.dispatchFilter((filter as CardSet), filterKey);
+        } else{
+            console.error("filter not found");
+            throw("Not yet implemented.");
+        }
     }
 
     onFilterByName = (e: any) => {
