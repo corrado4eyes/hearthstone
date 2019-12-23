@@ -47,7 +47,10 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
     }
 
     addToFavourites = () => {
-        this.props.dispatchSaveCard(this.props.card)
+        const card = Object.assign({}, this.props.card, {
+            favourite: !this.props.card.favourite
+        })
+        this.props.dispatchSaveCard(card)
     }
 
     componentDidMount = () => {
