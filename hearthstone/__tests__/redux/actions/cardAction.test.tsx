@@ -4,13 +4,16 @@ import { MockStore } from 'redux-mock-store';
 import CardService from '../../../src/services/cardService';
 import ServiceFactory from '../../../src/services/serviceFactory';
 import { spyRejects, spyResolves } from '../../testUtils/promiseUtils';
-import { dummyCardArray, cardNotFoundError, dummyCard } from '../../__mocks__/mockObjects';
+import { dummyCardArray, cardNotFoundError, dummyCard, dummyCardUgly } from '../../__mocks__/mockObjects';
+import { CardSet } from '../../../src/model/cardSet';
+import { initialState } from '../../../src/redux/reducers/cardReducer';
 
 const mockCardServiceFailure = (error?: any): CardService => {
     return {
         getAll: spyRejects(error),
         get: spyRejects(error),
         save: spyRejects(error),
+        getByCardSet: spyRejects(error)
     }
 }
 
@@ -21,11 +24,12 @@ const mockCardServiceSuccess = (resolvedData?: any): CardService => {
         getAll: spyResolves(resolvedData),
         get: spyResolves(resolvedData),
         save: spyResolves(resolvedData),
+        getByCardSet: spyRejects(resolvedData)
     }
 }
 
 const serviceSetup = (result: CardService) => {
-    return jest.spyOn(ServiceFactory.prototype, "getCardService")
+    return jest.spyOn(ServiceFactory.prototype, "getFirebaseCardService")
                .mockImplementation(() => result);
 };
 
@@ -39,11 +43,11 @@ describe('Card Actions', () => {
     describe('onSyncCard Action', () => {
         beforeEach(async () => {
             spy.mockClear();
-            store = generateMockStore({});
+            store = generateMockStore({card: {...initialState}});
             store.clearActions();
             await store.dispatch(fromCard.dispatchSyncCard())
         });
-        describe('onSyncCardSucceeded', () => {
+        describe('onSyncCardSucceeded getAll', () => {
             beforeAll(() => {
                 jest.resetModules();
                 spy = serviceSetup(mockCardServiceSuccess(dummyCardArray));
@@ -62,6 +66,31 @@ describe('Card Actions', () => {
                 expect(action[1]).toEqual({type: fromCard.CardActions.onSyncCardsSucceed, cards: dummyCardArray});
             });
         });
+
+        describe('onSyncCardSucceeded getByCardSet not cached', () => {
+            beforeAll( async () => {
+                spy.mockClear();
+                store.clearActions();
+                // Calling the syncing passing a cardSet
+                await store.dispatch(fromCard.dispatchSyncCard(CardSet.Basic))
+                jest.resetModules();
+                spy = serviceSetup(mockCardServiceSuccess([dummyCardUgly]));
+            });
+
+            it("creates the right payload", () => {
+                const action = fromCard.onSyncCardsConstructor();
+                expect(action).toEqual({
+                    type: fromCard.CardActions.onSyncCards,
+                });
+            });
+
+            it("dispatches the right action", () => {
+                const action = store.getActions();
+                expect(action.length).toBe(2);
+                expect(action[1]).toEqual({type: fromCard.CardActions.onSyncCardsSucceed, cards: [dummyCardUgly]});
+            });
+        });
+
         describe('onSyncCardFailed', () => {
             beforeAll(() => {
                 jest.resetModules();
@@ -86,10 +115,10 @@ describe('Card Actions', () => {
     describe('onSubmitFilter Action', () => {
         const cards = dummyCardArray
         const filterKey = "cardSet"
-        const filter = "Not Dummy"
+        const filter = CardSet.Basic
         beforeEach(async () => {
             spy.mockClear();
-            store = generateMockStore({});
+            store = generateMockStore({card: {...initialState, cards: cards}});
             store.clearActions();
             await store.dispatch(fromCard.dispatchFilter(filter, filterKey))
         });
@@ -117,5 +146,30 @@ describe('Card Actions', () => {
             expect(action[0]).toEqual({type: fromCard.CardActions.onFilterByName, name: cardName});
         });
 
+    });
+
+    xdescribe('onSyncCardSucceeded getByCardSet cached (dispatchSubmitFilter)', () => {
+        beforeAll( async () => {
+            spy.mockClear();
+            store.clearActions();
+            store = generateMockStore({card: {...initialState, cards: dummyCardArray}});
+            // Calling the syncing passing a cardSet
+            await store.dispatch(fromCard.dispatchSyncCard(CardSet.Basic))
+            jest.resetModules();
+        });
+
+        it("creates the right payload", () => {
+            const action = fromCard.onSyncCardsConstructor();
+            expect(action).toEqual({
+                type: fromCard.CardActions.onSyncCards,
+            });
+        });
+
+        it("dispatches the right action", () => {
+            const action = store.getActions();
+            expect(action.length).toBe(2);
+            expect(action[1]).toEqual({type: fromCard.CardActions.onSubmitFilter, filter: CardSet.Basic, filterKey: "cardSet"});
+            expect(store.getState().card.filteredCards).toEqual([dummyCardUgly])
+        });
     });
 });
