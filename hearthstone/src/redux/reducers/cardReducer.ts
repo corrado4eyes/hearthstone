@@ -1,5 +1,7 @@
 import {CardActionsType, CardActions} from '../actions/cardActions';
 import Card from '../../model/card';
+import { CardSet } from '../../model/cardSet';
+import { Rarity } from '../../model/rarity';
 
 export interface State {
     cards: Card[]
@@ -16,8 +18,8 @@ export const initialState = {
     loading: false,
     error: "",
     filters: {
-        cardSet: "Basic",
-        rarity: "Free",
+        cardSet: CardSet.Basic,
+        rarity: Rarity.Free,
     },
     filteredCards: []
 }
@@ -46,7 +48,7 @@ export const reducer = (state: State = initialState, action: CardActionsType) =>
         case CardActions.onSubmitFilter: 
             const newFilter = Object.assign({}, stateCopy.filters, {[action.filterKey]: action.filter});
             filteredCards = stateCopy.cards.filter((el: Card) => (el as any)[action.filterKey] === newFilter[action.filterKey]);
-            return Object.assign({}, state, {
+                return Object.assign({}, state, {
                 filteredCards: filteredCards,
                 filters: newFilter
             });
