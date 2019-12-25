@@ -6,7 +6,8 @@ import { Button, Card } from 'react-bootstrap';
 
 describe('Card Component(unconnected)', () => {
     const card = dummyCard;
-    const component: ShallowWrapper = shallow(<CardComponent card={card}/>)
+    const dispatchSaveCard = jest.fn()
+    const component: ShallowWrapper = shallow(<CardComponent card={card} dispatchSaveCard={dispatchSaveCard}/>)
 
     it('matches the snapshot', () => {
         expect(component).toMatchSnapshot()
@@ -21,7 +22,7 @@ describe('Card Component(unconnected)', () => {
     });
 
     it('disables the button if the card has no img', () => {
-        const noImgComponent: ShallowWrapper = shallow(<CardComponent card={noImgCard}/>)
+        const noImgComponent: ShallowWrapper = shallow(<CardComponent card={noImgCard} dispatchSaveCard={dispatchSaveCard}/>)
         const button = noImgComponent.find("#switchImg")
         expect(button.prop('disabled')).toBeTruthy()
     });
