@@ -3,6 +3,7 @@ import * as fromAction from '../../../src/redux/actions/cardActions';
 
 import { CardActionsType } from '../../../src/redux/actions/cardActions';
 import { dummyCardArray, cardNotFoundError, dummyCard, dummyCardUgly } from '../../__mocks__/mockObjects';
+import { CardSet } from '../../../src/model/cardSet';
 
 describe('Card Reducer', () => {
     let payload: CardActionsType;
@@ -21,7 +22,9 @@ describe('Card Reducer', () => {
         state = fromReducer.reducer(mockState, payload);
         mockState.loading = true
         expect(state.loading).toBeFalsy()
-        expect(state.cards).toBe(dummyCardArray)
+        // Since the initialState in mockState contains a copy of dummyCard Array, the expected content becomes
+        // 2 times the value of dummyCardArray 
+        expect(state.cards).toEqual(dummyCardArray.concat(dummyCardArray))
     });
 
     it('set loading to false and the error', () => {
@@ -39,7 +42,7 @@ describe('Card Reducer', () => {
         },
         {
             key: "cardSet",
-            value: "Not Dummy",
+            value: CardSet.Basic,
             expectedValue: dummyCardUgly
         }
     ]
@@ -56,5 +59,19 @@ describe('Card Reducer', () => {
         payload = fromAction.onFilterByNameConstructor(cardName);
         state = fromReducer.reducer(mockState, payload);
         expect(state.filteredCards).toStrictEqual([dummyCard])
+    });
+
+    it('update the card changes onSaveCardSucces', () => {
+        expect(state.cards[0].cardSet).toBe("Dummy")
+        payload = fromAction.onSaveCardSucceedConstructor({...dummyCard, cardSet: CardSet.Basic});
+        state = fromReducer.reducer(mockState, payload);
+        expect(state.cards[0].cardSet).toStrictEqual(CardSet.Basic)
+    });
+
+    it('update the error onSaveCardFailed', () => {
+        expect(state.error).toBe("")
+        payload = fromAction.onSaveCardFailedConstructor("Card has not been updated");
+        state = fromReducer.reducer(mockState, payload);
+        expect(state.error).toBe("Card has not been updated")
     });
 });
