@@ -1,4 +1,5 @@
 import Card from "../../src/model/card";
+import { CardSet } from "../../src/model/cardSet";
 
 export const dummyCard: Card = {
     artist: "Corrado Quattrocchi",
@@ -23,7 +24,7 @@ export const dummyCard: Card = {
 export const dummyCardUgly: Card = {
     artist: "lala",
     cardId: "what an ugly dummy card!",
-    cardSet: "Not Dummy",
+    cardSet: CardSet.Basic,
     collectible: true,
     cost: 9999,
     faction: "Splendo",
@@ -43,7 +44,7 @@ export const dummyCardUgly: Card = {
 export const noImgCard: Card = {
     artist: "lolo",
     cardId: "no_img_card",
-    cardSet: "no_img_cardset",
+    cardSet: CardSet.Classic,
     collectible: true,
     cost: 9999,
     faction: "lala",
