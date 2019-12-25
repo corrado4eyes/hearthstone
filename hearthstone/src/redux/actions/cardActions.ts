@@ -138,7 +138,7 @@ export const dispatchSyncCard = (cardSet: CardSet | undefined = undefined) => {
     return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
         dispatch(onSyncCardsConstructor())
         const cardService = serviceFactory.getFirebaseCardService()
-        if (!cardSet) {
+        if (cardSet === undefined) {
             cardService.getAll()
             .then((cards: Card[]) => {
                 dispatch(onSyncCardsSucceedConstructor(cards))
@@ -147,12 +147,7 @@ export const dispatchSyncCard = (cardSet: CardSet | undefined = undefined) => {
                 dispatch(onSyncCardsFailedConstructor(err))
             });
         } else {
-            const state = getState()
-            if(checkIfCached(cardSet, state)) {
-                dispatch(onFilterByNameConstructor(cardSet))
-            } else {
-                dispatchByCardSet(cardSet, cardService, dispatch)
-            }
+            dispatch(onSubmitFilterConstructor(cardSet, "cardSet"))
         }
     }
 }
@@ -167,14 +162,15 @@ export const dispatchFilter = (filter: CardSet | Rarity, filterKey: string) => {
         const cardService = serviceFactory.getFirebaseCardService()
         const state = getState()
         // If the filter is about the Rarity
-        if(Object.values(Rarity).includes(filter)) {
-            return dispatch(onSubmitFilterConstructor(filter, filterKey));
+        if((Rarity as any)[filter]) {
+            return dispatch(onSubmitFilterConstructor((filter as Rarity), filterKey));
         }
+        const cardSet = (filter as CardSet)
         if(checkIfCached((filter as CardSet), state)) {
-            return dispatch(onSubmitFilterConstructor(filter, filterKey))
+            return dispatch(onSubmitFilterConstructor(cardSet, filterKey))
         } else {
             dispatchByCardSet((filter as CardSet), cardService, dispatch)
-            return dispatch(onSubmitFilterConstructor(filter, filterKey));
+            return dispatch(onSubmitFilterConstructor(cardSet, filterKey));
         }
     }
 }
