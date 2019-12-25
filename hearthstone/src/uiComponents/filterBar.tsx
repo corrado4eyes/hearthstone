@@ -63,7 +63,8 @@ export class FilterBar extends React.PureComponent<Props, OwnState> {
         }
     }
 
-    onFilterSelected = (filter: string, filterKey: string) => {
+    onFilterSelected = (filter: any, filterKey: string) => {
+
         if(Object.values(CardSet).includes(filter) || Object.values(Rarity).includes(filter)){
             this.props.dispatchFilter((filter as CardSet), filterKey);
         } else{
@@ -104,7 +105,7 @@ export class FilterBar extends React.PureComponent<Props, OwnState> {
                                                 Object.values(el.enum).map((value) => {
                                                     return <NavDropdown.Item 
                                                             key={value as string} 
-                                                            onClick={this.onFilterSelected.bind(this, (value as string), el.key)}>
+                                                            onClick={this.onFilterSelected.bind(this, value, el.key)}>
                                                             >
                                                                 {value as string}
                                                             </NavDropdown.Item>
