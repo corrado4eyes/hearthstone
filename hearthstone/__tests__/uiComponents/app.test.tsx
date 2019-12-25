@@ -6,19 +6,21 @@ import Card from '../../src/model/card';
 import { RootState, initialState } from '../../src/redux/reducers/mainReducer';
 import { Provider } from 'react-redux';
 import { generateMockStore } from '../__mocks__/mockStore';
-import { CardComponent } from '../../src/uiComponents/cardComponent';
+import CardComponentConnected, { CardComponent } from '../../src/uiComponents/cardComponent';
+import { CardSet } from '../../src/model/cardSet';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 describe('App', () => {
-    const cardSet = "Dummy"
+    const cardSet = CardSet.Basic
     describe('App(unconnected)', () => {
         const dispatchSyncCard = jest.fn()
         const cards: Card[] = dummyCardArray
         const loading = false;
         const component: ShallowWrapper = shallow(<App cardSet={cardSet} filteredCards={cards} dispatchSyncCard={dispatchSyncCard} loading={loading}/>);
         it('renders n elements in an array', () => {
-            component.setState({cards: cards})
-            const cardComponent = component.find(CardComponent);
-            expect(cardComponent).toHaveLength(cards.length);
+            const cardComponent = component.find(CardComponentConnected);
+            expect(cardComponent).toHaveLength(2);
         });
     
         it('Snapshot testing', () => {
@@ -39,7 +41,7 @@ describe('App', () => {
         state.card.filters['cardSet'] = cardSet
         state.card.loading = false
         const store = generateMockStore(state)
-        const component: ReactWrapper = mount(<Provider store={store}><ConnectedApp cardSet={cardSet}/></Provider>);
+        const component: ReactWrapper = mount(<Provider store={store}><ConnectedApp /></Provider>);
 
         afterAll(() => {
             component.unmount()
