@@ -38,7 +38,7 @@ export class FirebaseCardService implements CardService {
 
     getByCardSet(cardSet: CardSet): Promise<Card[]> {
         const filter = {'field': 'cardSet', 'operator': "==", 'cardSet': cardSet}
-        return this.docRef().limit(10).where(filter.field, '==', filter.cardSet).get()
+        return this.docRef().where(filter.field, '==', filter.cardSet).get()
         .then((doc: firebase.firestore.QuerySnapshot) => {
             return doc.docs.map((el: firebase.firestore.DocumentData) => {
                 return el.data()
