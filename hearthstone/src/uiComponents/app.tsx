@@ -36,7 +36,7 @@ type Props = StateProps & ActionProps;
 export class App extends React.PureComponent<Props, {}> {
     
     componentDidMount(){
-        this.props.dispatchSyncCard()
+        this.props.dispatchSyncCard(this.props.cardSet)
     }
 
     render(){

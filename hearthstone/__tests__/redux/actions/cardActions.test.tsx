@@ -148,11 +148,12 @@ describe('Card Actions', () => {
 
     });
 
-    xdescribe('onSyncCardSucceeded getByCardSet cached (dispatchSubmitFilter)', () => {
+    describe('onSyncCardSucceeded getByCardSet cached (dispatchSubmitFilter)', () => {
         beforeAll( async () => {
             spy.mockClear();
+            spy = serviceSetup(mockCardServiceSuccess(dummyCardUgly))
             store.clearActions();
-            store = generateMockStore({card: {...initialState, cards: dummyCardArray}});
+            store = generateMockStore({card: {...initialState}});
             // Calling the syncing passing a cardSet
             await store.dispatch(fromCard.dispatchSyncCard(CardSet.Basic))
             jest.resetModules();
@@ -168,7 +169,7 @@ describe('Card Actions', () => {
         it("dispatches the right action", () => {
             const action = store.getActions();
             expect(action.length).toBe(2);
-            expect(action[1]).toEqual({type: fromCard.CardActions.onSubmitFilter, filter: CardSet.Basic, filterKey: "cardSet"});
+            expect(action[1]).toEqual({type: fromCard.CardActions.onSyncCardsSucceed, cards: [dummyCardUgly]});
             expect(store.getState().card.filteredCards).toEqual([dummyCardUgly])
         });
     });

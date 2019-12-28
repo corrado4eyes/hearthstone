@@ -1,5 +1,6 @@
+import * as firebase from 'firebase';
 import {firestore} from "firebase/app";
-import { injectable } from "inversify";
+import "firebase/firestore";
 
 export interface IFirebaseCommon {
     collection(collectionId: string): firestore.CollectionReference;

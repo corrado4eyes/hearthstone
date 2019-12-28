@@ -147,7 +147,13 @@ export const dispatchSyncCard = (cardSet: CardSet | undefined = undefined) => {
                 dispatch(onSyncCardsFailedConstructor(err))
             });
         } else {
-            dispatch(onSubmitFilterConstructor(cardSet, "cardSet"))
+            cardService.getByCardSet(cardSet)
+            .then((cards: Card[]) => {
+                dispatch(onSyncCardsSucceedConstructor(cards))
+            })
+            .catch((err: string) => {
+                dispatch(onSyncCardsFailedConstructor(err))
+            });
         }
     }
 }
