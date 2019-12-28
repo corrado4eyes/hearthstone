@@ -33,7 +33,7 @@ describe('App', () => {
         });
     });
 
-    describe('App(connected)', () => {
+    xdescribe('App(connected)', () => {
         const state: RootState = {
             ...initialState, 
         }
