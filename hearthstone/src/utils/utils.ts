@@ -1,3 +1,5 @@
+import 'isomorphic-fetch';
+
 export const urlIsFound = (url: string) => {
     return fetch(url)
     .then((response) => {

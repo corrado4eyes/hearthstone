@@ -19,7 +19,7 @@ exports[`App App(unconnected) Snapshot testing 1`] = `
       key="what a dummy card!"
       md="4"
     >
-      <CardComponent
+      <Connect(CardComponent)
         card={
           Object {
             "artist": "Corrado Quattrocchi",
@@ -48,12 +48,12 @@ exports[`App App(unconnected) Snapshot testing 1`] = `
       key="what an ugly dummy card!"
       md="4"
     >
-      <CardComponent
+      <Connect(CardComponent)
         card={
           Object {
             "artist": "lala",
             "cardId": "what an ugly dummy card!",
-            "cardSet": "Not Dummy",
+            "cardSet": "Basic",
             "collectible": true,
             "cost": 9999,
             "faction": "Splendo",

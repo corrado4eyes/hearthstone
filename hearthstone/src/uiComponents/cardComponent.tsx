@@ -4,6 +4,9 @@ import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
 import { urlIsFound } from '../utils/utils';
+import { dispatchSaveCard } from '../redux/actions/cardActions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 
 interface OwnProps {
@@ -14,8 +17,24 @@ export interface OwnState {
     goldImg: boolean
     isImgAvailable: boolean
 }
-export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
-    constructor(props: OwnProps){
+
+interface ActionProps {
+    dispatchSaveCard: typeof dispatchSaveCard;
+}
+
+const mapStateToProps = () => {
+    return {}
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return bindActionCreators({dispatchSaveCard}, dispatch)
+}
+
+type Props = ActionProps & OwnProps;
+export class CardComponent extends React.PureComponent<Props, OwnState> {
+    private _isMounted = false;
+
+    constructor(props: Props){
         super(props)
         this.state = {
             goldImg: false,
@@ -28,18 +47,28 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
     }
 
     addToFavourites = () => {
-        throw("Not Implemented yet.")
+        const card = Object.assign({}, this.props.card, {
+            favourite: !this.props.card.favourite
+        })
+        this.props.dispatchSaveCard(card)
     }
 
     componentDidMount = () => {
+        this._isMounted = true;
         urlIsFound(this.props.card.img!)
         .then((resp) => {
-            if(resp){
-                this.setState({isImgAvailable: true});
-            } else {
-                this.setState({isImgAvailable: false});
+            if(this._isMounted){
+                if(resp){
+                    this.setState({isImgAvailable: true});
+                } else {
+                    this.setState({isImgAvailable: false});
+                }
             }
         });
+    }
+
+    componentWillUnmount = () => {
+        this._isMounted = false
     }
 
     render() {
@@ -62,7 +91,10 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
                 </Card.Text>
                 <Row>
                     <Col>
-                        <Button id="switchImg" className="no-borders" onClick={this.switchImage} disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
+                        <Button id="switchImg" 
+                            className="no-borders" 
+                            onClick={this.switchImage} 
+                            disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
                     </Col>
                     <Col>
                         <Button id="favBtn" onClick={this.addToFavourites}>Add to Favourites</Button>
@@ -72,3 +104,4 @@ export class CardComponent extends React.PureComponent<OwnProps, OwnState> {
         );
     }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(CardComponent)

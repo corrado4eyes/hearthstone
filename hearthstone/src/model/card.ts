@@ -20,4 +20,5 @@ export default interface Card {
     howToGetGold?: string
     cost?: number
     attack?: number
+    favourite?: boolean
 }

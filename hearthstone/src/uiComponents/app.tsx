@@ -6,27 +6,25 @@ import {dispatchSyncCard} from '../redux/actions/cardActions'
 import {RootState} from '../redux/reducers/mainReducer';
 import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
-import { CardComponent } from './cardComponent';
+import CardComponent from './cardComponent';
 import '../styles/commonProperties.css';
 import FilterBar from './filterBar';
+import { CardSet } from '../model/cardSet';
 
 interface StateProps {
     filteredCards: Card[];
     loading: boolean;
+    cardSet: CardSet;
 }
 
 interface ActionProps {
     dispatchSyncCard: typeof dispatchSyncCard;
 }
 
-interface OwnProps {
-    cardSet: string;
-}
-
-const mapStateToProps = ({card}: RootState, ownProps: OwnProps) => {
+const mapStateToProps = ({card}: RootState) => {
     return{
         filteredCards: card.filteredCards,
-        cardSet: ownProps.cardSet,
+        cardSet: (card.filters.cardSet as CardSet),
         loading: card.loading
     }
 };
@@ -34,11 +32,11 @@ const mapStateToProps = ({card}: RootState, ownProps: OwnProps) => {
 const mapDispatchToProps = (dispatch: any) => {
     return bindActionCreators({dispatchSyncCard}, dispatch);
 }
-type Props = StateProps & ActionProps & OwnProps;
+type Props = StateProps & ActionProps;
 export class App extends React.PureComponent<Props, {}> {
     
     componentDidMount(){
-        this.props.dispatchSyncCard()
+        this.props.dispatchSyncCard(this.props.cardSet)
     }
 
     render(){

@@ -3,7 +3,7 @@ import {applyMiddleware, createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import ServiceFactory from '../../services/serviceFactory';
-import {mainReducer} from '../reducers/mainReducer'
+import {mainReducer} from '../reducers/mainReducer';
 
 export const configureStore = (container: Container) => {
     const serviceFactory = new ServiceFactory(container);
