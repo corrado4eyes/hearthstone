@@ -3,19 +3,21 @@ import { Image, Card, Button, Row, Col } from 'react-bootstrap';
 import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
+import favoriteImg from '../assets/favorite.png';
+import notFavorite from '../assets/not-favorite.png';
 import { urlIsFound } from '../utils/utils';
 import { dispatchSaveCard } from '../redux/actions/cardActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import '../styles/cardComponent.css';
 
-interface OwnProps {
-    card: CardModel;
-}
-
 export interface OwnState {
     goldImg: boolean
     isImgAvailable: boolean
+}
+
+export interface OwnProps {
+    card: CardModel;
 }
 
 interface ActionProps {
@@ -96,7 +98,8 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
                             disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
                     </Col>
                     <Col>
-                        <Button id="favBtn" onClick={this.addToFavourites}>Add to Favourites</Button>
+                        <Button id="favBtn" 
+                        onClick={this.addToFavourites}><Image src={this.props.card.favourite ? favoriteImg : notFavorite}/></Button>
                     </Col>
                 </Row>
             </Card>
