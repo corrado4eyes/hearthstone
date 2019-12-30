@@ -73,7 +73,6 @@ export const reducer = (state: State = initialState, action: CardActionsType) =>
         case CardActions.onSaveCardSucceed:
             const cards = updateCards(stateCopy.cards, action.card)
             filteredCards = updateCards(stateCopy.filteredCards, action.card)
-            console.log(cards, filteredCards)
             return Object.assign({}, stateCopy, {
                 cards: cards,
                 filteredCards: filteredCards
