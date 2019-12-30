@@ -84,10 +84,9 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
                     : noImg
                     }
                     />
-                <Card.Title className="card-font">{this.props.card.name}</Card.Title>
                 <Card.Text className="card-font">
-                {`Attack: ${this.props.card.attack || "NaN"}\n
-                  Health: ${this.props.card.health || "NaN"}\n`}
+                { this.props.card.attack ? `Attack: ${this.props.card.attack}\n` : null}
+                { this.props.card.health ? `Health: ${this.props.card.health}\n`: null}
                 </Card.Text>
                 <Row>
                     <Col>
