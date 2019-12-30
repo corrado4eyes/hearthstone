@@ -3,19 +3,21 @@ import { Image, Card, Button, Row, Col } from 'react-bootstrap';
 import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
+import favoriteImg from '../assets/favorite.png';
+import notFavorite from '../assets/not-favorite.png';
 import { urlIsFound } from '../utils/utils';
 import { dispatchSaveCard } from '../redux/actions/cardActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-
-interface OwnProps {
-    card: CardModel;
-}
+import '../styles/cardComponent.css';
 
 export interface OwnState {
     goldImg: boolean
     isImgAvailable: boolean
+}
+
+export interface OwnProps {
+    card: CardModel;
 }
 
 interface ActionProps {
@@ -84,10 +86,9 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
                     : noImg
                     }
                     />
-                <Card.Title>{this.props.card.name}</Card.Title>
-                <Card.Text>
-                {`Attack: ${this.props.card.attack || "NaN"}\n
-                  Health: ${this.props.card.health || "NaN"}\n`}
+                <Card.Text className="card-font">
+                { this.props.card.attack ? `Attack: ${this.props.card.attack}\n` : null}
+                { this.props.card.health ? `Health: ${this.props.card.health}\n`: null}
                 </Card.Text>
                 <Row>
                     <Col>
@@ -97,7 +98,8 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
                             disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
                     </Col>
                     <Col>
-                        <Button id="favBtn" onClick={this.addToFavourites}>Add to Favourites</Button>
+                        <Button id="favBtn" 
+                        onClick={this.addToFavourites}><Image src={this.props.card.favourite ? favoriteImg : notFavorite}/></Button>
                     </Col>
                 </Row>
             </Card>

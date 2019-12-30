@@ -7,5 +7,35 @@
 }
 
 .navbar {
+    margin-top: 10px;
     background-image: url(../assets/navBar.png);
+    border-radius: 5%;
+}
+#nameFilter{
+    background-color: #e0e0e0;
+}
+
+.navbar-font {
+    color: #eeeeee;
+}
+
+.navbar-item {
+    border: none !important;
+    border-color: #033b46;
+    background-color: #033b46;
+}
+
+.navbar-item:hover {
+    /* background-color: #044755; */
+    /* background-color: #076072; */
+    background-color: #07575b;
+    color: #eeeeee;   
+}
+
+.dropdown-menu {
+    background-color: #033b46;
+}
+
+.navbar-drop {
+    color: white;
 }

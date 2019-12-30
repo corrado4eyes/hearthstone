@@ -100,13 +100,13 @@ export class FilterBar extends React.PureComponent<Props, OwnState> {
                                     filters.map((el, i) => {
                                         return (
                                             <Col key={i}>
-                                                <NavDropdown title={this.props.filters[el.key]} id={el.id} key={el.id}>
+                                                <NavDropdown title={this.props.filters[el.key]} id={el.id} key={el.id}> 
                                             {
                                                 Object.values(el.enum).map((value) => {
                                                     return <NavDropdown.Item 
                                                             key={value as string} 
-                                                            onClick={this.onFilterSelected.bind(this, value, el.key)}>
-                                                            >
+                                                            onClick={this.onFilterSelected.bind(this, value, el.key)}
+                                                            className="navbar-font navbar-item">
                                                                 {value as string}
                                                             </NavDropdown.Item>
                                                 })

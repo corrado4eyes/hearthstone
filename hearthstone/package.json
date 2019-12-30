@@ -14,8 +14,6 @@
     "enzyme-to-json": "^3.4.3",
     "es6-promise": "^4.2.8",
     "firebase": "7.6.1",
-    "firebase-admin": "^8.9.0",
-    "firebase-functions": "^3.3.0",
     "inversify-react": "^0.4.3",
     "jest": "^24.9.0",
     "node-sass": "^4.13.0",

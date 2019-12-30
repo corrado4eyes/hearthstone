@@ -9,15 +9,9 @@ exports[`Card Component(unconnected) matches the snapshot 1`] = `
     src="http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png"
     variant="top"
   />
-  <CardTitle>
-    corrado4eyes
-  </CardTitle>
-  <CardText>
-    Attack: NaN
-
-                  Health: NaN
-
-  </CardText>
+  <CardText
+    className="card-font"
+  />
   <ForwardRef
     noGutters={false}
   >
@@ -49,7 +43,13 @@ exports[`Card Component(unconnected) matches the snapshot 1`] = `
         type="button"
         variant="primary"
       >
-        Add to Favourites
+        <Image
+          fluid={false}
+          rounded={false}
+          roundedCircle={false}
+          src={Object {}}
+          thumbnail={false}
+        />
       </Button>
     </Col>
   </ForwardRef>
