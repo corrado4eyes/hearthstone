@@ -24,6 +24,15 @@ export const initialState = {
     filteredCards: []
 }
 
+const updateCards = (array: Card[], updatedCard: Card) => {
+    return array.map((card: Card) => {
+        if(card.cardId! === updatedCard.cardId!)
+            return updatedCard
+        else
+            return card
+    }) 
+}
+
 export const reducer = (state: State = initialState, action: CardActionsType) => {
     const stateCopy = Object.assign({}, state)
     let filteredCards: Card[] = []
@@ -62,14 +71,12 @@ export const reducer = (state: State = initialState, action: CardActionsType) =>
                 filteredCards
             });
         case CardActions.onSaveCardSucceed:
-            const cards = stateCopy.cards.map((card: Card) => {
-                if(card.cardId! === action.card.cardId!)
-                    return action.card
-                else
-                    return card
-            }) 
+            const cards = updateCards(stateCopy.cards, action.card)
+            filteredCards = updateCards(stateCopy.filteredCards, action.card)
+            console.log(cards, filteredCards)
             return Object.assign({}, stateCopy, {
                 cards: cards,
+                filteredCards: filteredCards
             });
         case CardActions.onSaveCardFailed:
             return Object.assign({}, stateCopy, {
