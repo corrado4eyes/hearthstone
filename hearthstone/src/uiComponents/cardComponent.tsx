@@ -7,7 +7,7 @@ import { urlIsFound } from '../utils/utils';
 import { dispatchSaveCard } from '../redux/actions/cardActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import '../styles/cardComponent.css';
 
 interface OwnProps {
     card: CardModel;
@@ -84,8 +84,8 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
                     : noImg
                     }
                     />
-                <Card.Title>{this.props.card.name}</Card.Title>
-                <Card.Text>
+                <Card.Title className="card-font">{this.props.card.name}</Card.Title>
+                <Card.Text className="card-font">
                 {`Attack: ${this.props.card.attack || "NaN"}\n
                   Health: ${this.props.card.health || "NaN"}\n`}
                 </Card.Text>
