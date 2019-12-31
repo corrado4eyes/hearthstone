@@ -12,13 +12,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import '../styles/cardComponent.css';
 
-export interface OwnState {
+export interface CardState {
     goldImg: boolean
     isImgAvailable: boolean
     isOpen: boolean 
 }
 
-export interface OwnProps {
+export interface CardProps {
     card: CardModel;
 }
 
@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const centeredDetailProperty = {offset: 4}
 
-type Props = ActionProps & OwnProps;
-export class CardComponent extends React.PureComponent<Props, OwnState> {
+type Props = ActionProps & CardProps;
+export class CardComponent extends React.PureComponent<Props, CardState> {
     private _isMounted = false;
 
     constructor(props: Props){
