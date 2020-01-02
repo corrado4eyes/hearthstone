@@ -11,6 +11,7 @@ import { dispatchSaveCard } from '../redux/actions/cardActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import '../styles/cardComponent.css';
+import { CardDetail } from './cardDetail';
 
 export interface CardState {
     goldImg: boolean
@@ -44,6 +45,7 @@ export class CardComponent extends React.PureComponent<Props, CardState> {
         super(props)
         this.state = {
             goldImg: false,
+            // isImgAvailable starts with the value of true because otherwise noImg will be rendered immidiately
             isImgAvailable: true,
             isOpen: false
         }
@@ -112,76 +114,6 @@ export class CardComponent extends React.PureComponent<Props, CardState> {
         )
     }
 
-    renderCardDetail = () => {
-        return (
-            <Container className="cardDetailContainer">
-                <Row style={{height: "auto"}}>
-                    <Col>
-                        <Image src={
-                        (this.state.isImgAvailable) ? 
-                            ((this.props.card.img) ? 
-                                (this.state.goldImg ? 
-                                    this.props.card.imgGold 
-                                : this.props.card.img) 
-                            : noImg) 
-                        : noImg
-                        } height="90%" width="90%"/>
-                    </Col>
-                    <Col className="cardDetail-font">
-                        <Col>
-                            {this.props.card.name}
-                        </Col>
-                        <Row>
-                            <Col>
-                                Card set: {this.props.card.cardSet}
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col> 
-                                Rarity: {this.props.card.rarity} 
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col> 
-                                Type: {this.props.card.type} 
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col> 
-                                Player class: {this.props.card.playerClass} 
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col> 
-                                Cost: {this.props.card.cost} <Image src={manaIcon}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>{ this.props.card.attack ? `Attack: ${this.props.card.attack}\n` : null}</Col>
-                            <Col>{ this.props.card.health ? `Health: ${this.props.card.health}\n`: null}</Col>
-                        </Row>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Button id="switchImg" 
-                            className="no-borders" 
-                            onClick={this.switchImage} 
-                            disabled={this.props.card.imgGold ? false : true}>
-                            <Image src={changeImg}/>
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button id="favBtn" 
-                            onClick={this.addToFavourites}>
-                                <Image src={this.props.card.favourite ? favoriteImg : notFavorite}/>
-                        </Button>
-                    </Col>
-                </Row>
-                </Container>
-        )
-    }
-
     render() {
         return(
             <>
@@ -190,7 +122,7 @@ export class CardComponent extends React.PureComponent<Props, CardState> {
                         <Modal.Title>Card detail</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="modalBody">
-                        {this.renderCardDetail()}
+                        <CardDetail card={this.props.card} cardState={this.state} switchImage={this.switchImage} addToFavourites={this.addToFavourites}/>
                     </Modal.Body>
                 </Modal>
                 {this.renderCardPreview()}
