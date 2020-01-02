@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { Image, Card, Button, Row, Col, Modal, Container } from 'react-bootstrap';
+import { Image, Card, Button, Row, Col, Modal } from 'react-bootstrap';
 import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
 import favoriteImg from '../assets/favorite.png';
 import notFavorite from '../assets/not-favorite.png';
-import manaIcon from '../assets/mana-icon.png';
 import { urlIsFound } from '../utils/utils';
 import { dispatchSaveCard } from '../redux/actions/cardActions';
 import { bindActionCreators } from 'redux';
