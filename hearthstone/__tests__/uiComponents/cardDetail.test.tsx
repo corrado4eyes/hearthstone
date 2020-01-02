@@ -19,6 +19,10 @@ const cardStateInitialValues: CardState = {
 describe('CardDetail', () => {
     const component: ReactWrapper = mount(<CardDetail switchImage={switchImage} addToFavourites={addToFavorite} cardState={cardStateInitialValues} card={dummyCard}/>);
 
+    afterAll(() => {
+        component.unmount()
+    })
+
     it('matches the snapshot', () => {
         expect(component).toMatchSnapshot();
     })
