@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardState,  } from './cardComponent';
+import { CardState } from './cardComponent';
 import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
