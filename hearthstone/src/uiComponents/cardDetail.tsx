@@ -86,7 +86,7 @@ export class CardDetail extends React.PureComponent<CardDetailProps, OwnState> {
                             <Image src={changeImg}/>
                         </Button>
                     </Col>
-                    <Col>
+                    <Col sm="2">
                         <Button id="favBtn" 
                             onClick={this.props.addToFavourites}>
                                 <Image src={this.props.card.favourite ? favoriteImg : notFavorite}/>
