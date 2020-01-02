@@ -1,4 +1,18 @@
-.card-title, .card-text {
+.cardDetail-font {
     color: #e0e0e0;
     font-family: 'Aclonica';
+    text-align: center;
+}
+
+.modalBody {
+    background-image: url('../assets/card-detail-background.jpg');
+}
+
+.modalHeader {
+    z-index: 1;
+    background-image: url('../assets/navBar.png');
+}
+
+.cardDetailContainer {
+    z-index: 2;
 }

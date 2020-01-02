@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { dummyCard, noImgCard } from '../__mocks__/mockObjects';
 import { ShallowWrapper, shallow } from 'enzyme';
-import { CardComponent, OwnState } from '../../src/uiComponents/cardComponent';
+import { CardComponent, CardState } from '../../src/uiComponents/cardComponent';
 import { Button, Card } from 'react-bootstrap';
 
 describe('Card Component(unconnected)', () => {
@@ -14,16 +14,23 @@ describe('Card Component(unconnected)', () => {
     });
 
     it('switches the image onClick on changeImageButton', () => {
-        const button = component.find("#switchImg");
+        const buttons = component.find("#switchImg");
         const img = component.find(Card.Img);
-        expect((component.state() as OwnState).goldImg).toBeFalsy();
-        button.simulate('click');
-        expect((component.state() as OwnState).goldImg).toBeTruthy();
+        expect((component.state() as CardState).goldImg).toBeFalsy();
+        buttons.simulate('click');
+        expect((component.state() as CardState).goldImg).toBeTruthy();
     });
 
     it('disables the button if the card has no img', () => {
         const noImgComponent: ShallowWrapper = shallow(<CardComponent card={noImgCard} dispatchSaveCard={dispatchSaveCard}/>)
-        const button = noImgComponent.find("#switchImg")
-        expect(button.prop('disabled')).toBeTruthy()
+        const buttons = noImgComponent.find("#switchImg");
+        expect(buttons.prop('disabled')).toBeTruthy();
+    });
+
+    it('changes the value of isOpen property on the state', () => {
+        const imageButton = component.find(Card.Img);
+        expect((component.state() as any)['isOpen']).toBeFalsy();
+        imageButton.simulate('click');
+        expect((component.state() as any)['isOpen']).toBeTruthy();
     });
 });

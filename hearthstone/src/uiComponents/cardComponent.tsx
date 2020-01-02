@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, Card, Button, Row, Col } from 'react-bootstrap';
+import { Image, Card, Button, Row, Col, Modal } from 'react-bootstrap';
 import CardModel from '../model/card';
 import noImg from '../assets/noImg.jpg';
 import changeImg from '../assets/change-img-32x32.png';
@@ -10,13 +10,15 @@ import { dispatchSaveCard } from '../redux/actions/cardActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import '../styles/cardComponent.css';
+import { CardDetail } from './cardDetail';
 
-export interface OwnState {
+export interface CardState {
     goldImg: boolean
     isImgAvailable: boolean
+    isOpen: boolean 
 }
 
-export interface OwnProps {
+export interface CardProps {
     card: CardModel;
 }
 
@@ -32,15 +34,19 @@ const mapDispatchToProps = (dispatch: any) => {
     return bindActionCreators({dispatchSaveCard}, dispatch)
 }
 
-type Props = ActionProps & OwnProps;
-export class CardComponent extends React.PureComponent<Props, OwnState> {
+const centeredDetailProperty = {offset: 4}
+
+type Props = ActionProps & CardProps;
+export class CardComponent extends React.PureComponent<Props, CardState> {
     private _isMounted = false;
 
     constructor(props: Props){
         super(props)
         this.state = {
             goldImg: false,
+            // isImgAvailable starts with the value of true because otherwise noImg will be rendered immidiately
             isImgAvailable: true,
+            isOpen: false
         }
     }
 
@@ -53,6 +59,10 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
             favourite: !this.props.card.favourite
         })
         this.props.dispatchSaveCard(card)
+    }
+
+    cardDetail = () => {
+        this.setState({isOpen: !this.state.isOpen})
     }
 
     componentDidMount = () => {
@@ -73,9 +83,9 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
         this._isMounted = false
     }
 
-    render() {
-        return(
-            <Card className="no-border text-center">
+    renderCardPreview = () => {
+        return (
+                <Card className="no-border text-center">
                 <Card.Img variant="top" src={
                     (this.state.isImgAvailable) ? 
                         ((this.props.card.img) ? 
@@ -84,18 +94,15 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
                             : this.props.card.img) 
                         : noImg) 
                     : noImg
-                    }
-                    />
-                <Card.Text className="card-font">
-                { this.props.card.attack ? `Attack: ${this.props.card.attack}\n` : null}
-                { this.props.card.health ? `Health: ${this.props.card.health}\n`: null}
-                </Card.Text>
+                    } onClick={this.cardDetail}/>
                 <Row>
                     <Col>
                         <Button id="switchImg" 
                             className="no-borders" 
                             onClick={this.switchImage} 
-                            disabled={this.props.card.img ? false : true}><Image src={changeImg}/></Button>
+                            disabled={this.props.card.imgGold ? false : true}>
+                            <Image src={changeImg}/>
+                        </Button>
                     </Col>
                     <Col>
                         <Button id="favBtn" 
@@ -103,6 +110,22 @@ export class CardComponent extends React.PureComponent<Props, OwnState> {
                     </Col>
                 </Row>
             </Card>
+        )
+    }
+
+    render() {
+        return(
+            <>
+                <Modal show={this.state.isOpen} onHide={this.cardDetail}> 
+                    <Modal.Header className="modalHeader" closeButton>
+                        <Modal.Title>Card detail</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="modalBody">
+                        <CardDetail card={this.props.card} cardState={this.state} switchImage={this.switchImage} addToFavourites={this.addToFavourites}/>
+                    </Modal.Body>
+                </Modal>
+                {this.renderCardPreview()}
+            </>
         );
     }
 }

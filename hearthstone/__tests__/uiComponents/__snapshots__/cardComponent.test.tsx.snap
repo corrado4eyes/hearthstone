@@ -1,57 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Card Component(unconnected) matches the snapshot 1`] = `
-<Card
-  body={false}
-  className="no-border text-center"
->
-  <CardImg
-    src="http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png"
-    variant="top"
-  />
-  <CardText
-    className="card-font"
-  />
-  <ForwardRef
-    noGutters={false}
+<Fragment>
+  <Bootstrap(Modal)
+    onHide={[Function]}
+    show={false}
   >
-    <Col>
-      <Button
-        active={false}
-        className="no-borders"
-        disabled={false}
-        id="switchImg"
-        onClick={[Function]}
-        type="button"
-        variant="primary"
-      >
-        <Image
-          fluid={false}
-          rounded={false}
-          roundedCircle={false}
-          src={Object {}}
-          thumbnail={false}
-        />
-      </Button>
-    </Col>
-    <Col>
-      <Button
-        active={false}
-        disabled={false}
-        id="favBtn"
-        onClick={[Function]}
-        type="button"
-        variant="primary"
-      >
-        <Image
-          fluid={false}
-          rounded={false}
-          roundedCircle={false}
-          src={Object {}}
-          thumbnail={false}
-        />
-      </Button>
-    </Col>
-  </ForwardRef>
-</Card>
+    <ModalHeader
+      className="modalHeader"
+      closeButton={true}
+      closeLabel="Close"
+    >
+      <ModalTitle>
+        Card detail
+      </ModalTitle>
+    </ModalHeader>
+    <ModalBody
+      className="modalBody"
+    >
+      <CardDetail
+        addToFavourites={[Function]}
+        card={
+          Object {
+            "artist": "Corrado Quattrocchi",
+            "cardId": "what a dummy card!",
+            "cardSet": "Dummy",
+            "collectible": true,
+            "cost": 9999,
+            "faction": "Splendo",
+            "flavor": "Meat",
+            "howToGet": "Ask Frits",
+            "howToGetGold": "Feeds and Walk Frits for 2 years every day (excluded the holidays)",
+            "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png",
+            "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/DS1_183_premium.gif",
+            "locale": "enUS",
+            "name": "corrado4eyes",
+            "playerClass": "Human",
+            "rarity": "Super Rare",
+            "text": "A dummy Italian boy",
+            "type": "Developer",
+          }
+        }
+        cardState={
+          Object {
+            "goldImg": false,
+            "isImgAvailable": true,
+            "isOpen": false,
+          }
+        }
+        switchImage={[Function]}
+      />
+    </ModalBody>
+  </Bootstrap(Modal)>
+  <Card
+    body={false}
+    className="no-border text-center"
+  >
+    <CardImg
+      onClick={[Function]}
+      src="http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png"
+      variant="top"
+    />
+    <ForwardRef
+      noGutters={false}
+    >
+      <Col>
+        <Button
+          active={false}
+          className="no-borders"
+          disabled={false}
+          id="switchImg"
+          onClick={[Function]}
+          type="button"
+          variant="primary"
+        >
+          <Image
+            fluid={false}
+            rounded={false}
+            roundedCircle={false}
+            src={Object {}}
+            thumbnail={false}
+          />
+        </Button>
+      </Col>
+      <Col>
+        <Button
+          active={false}
+          disabled={false}
+          id="favBtn"
+          onClick={[Function]}
+          type="button"
+          variant="primary"
+        >
+          <Image
+            fluid={false}
+            rounded={false}
+            roundedCircle={false}
+            src={Object {}}
+            thumbnail={false}
+          />
+        </Button>
+      </Col>
+    </ForwardRef>
+  </Card>
+</Fragment>
 `;
