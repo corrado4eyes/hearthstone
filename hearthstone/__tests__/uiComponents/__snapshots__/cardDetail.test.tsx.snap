@@ -1,0 +1,291 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardDetail matches the snapshot 1`] = `
+<CardDetail
+  addToFavourites={[MockFunction]}
+  card={
+    Object {
+      "artist": "Corrado Quattrocchi",
+      "cardId": "what a dummy card!",
+      "cardSet": "Dummy",
+      "collectible": true,
+      "cost": 9999,
+      "faction": "Splendo",
+      "flavor": "Meat",
+      "howToGet": "Ask Frits",
+      "howToGetGold": "Feeds and Walk Frits for 2 years every day (excluded the holidays)",
+      "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png",
+      "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/DS1_183_premium.gif",
+      "locale": "enUS",
+      "name": "corrado4eyes",
+      "playerClass": "Human",
+      "rarity": "Super Rare",
+      "text": "A dummy Italian boy",
+      "type": "Developer",
+    }
+  }
+  cardState={
+    Object {
+      "goldImg": false,
+      "isImgAvailable": true,
+      "isOpen": false,
+    }
+  }
+  switchImage={[MockFunction]}
+>
+  <Container
+    className="cardDetailContainer"
+    fluid={false}
+  >
+    <div
+      className="cardDetailContainer container"
+    >
+      <ForwardRef
+        noGutters={false}
+        style={
+          Object {
+            "height": "auto",
+          }
+        }
+      >
+        <div
+          className="row"
+          style={
+            Object {
+              "height": "auto",
+            }
+          }
+        >
+          <Col>
+            <div
+              className="col"
+            >
+              <Image
+                fluid={false}
+                height="90%"
+                rounded={false}
+                roundedCircle={false}
+                src="http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png"
+                thumbnail={false}
+                width="90%"
+              >
+                <img
+                  className=""
+                  height="90%"
+                  src="http://media.services.zam.com/v1/media/byName/hs/cards/enus/DS1_183.png"
+                  width="90%"
+                />
+              </Image>
+            </div>
+          </Col>
+          <Col
+            className="cardDetail-font"
+          >
+            <div
+              className="cardDetail-font col"
+            >
+              <Col>
+                <div
+                  className="col"
+                >
+                  corrado4eyes
+                </div>
+              </Col>
+              <ForwardRef
+                noGutters={false}
+              >
+                <div
+                  className="row"
+                >
+                  <Col>
+                    <div
+                      className="col"
+                    >
+                      Card set: 
+                      Dummy
+                    </div>
+                  </Col>
+                </div>
+              </ForwardRef>
+              <ForwardRef
+                noGutters={false}
+              >
+                <div
+                  className="row"
+                >
+                  <Col>
+                    <div
+                      className="col"
+                    >
+                      Rarity: 
+                      Super Rare
+                    </div>
+                  </Col>
+                </div>
+              </ForwardRef>
+              <ForwardRef
+                noGutters={false}
+              >
+                <div
+                  className="row"
+                >
+                  <Col>
+                    <div
+                      className="col"
+                    >
+                      Type: 
+                      Developer
+                    </div>
+                  </Col>
+                </div>
+              </ForwardRef>
+              <ForwardRef
+                noGutters={false}
+              >
+                <div
+                  className="row"
+                >
+                  <Col>
+                    <div
+                      className="col"
+                    >
+                      Player class: 
+                      Human
+                    </div>
+                  </Col>
+                </div>
+              </ForwardRef>
+              <ForwardRef
+                noGutters={false}
+              >
+                <div
+                  className="row"
+                >
+                  <Col>
+                    <div
+                      className="col"
+                    >
+                      Cost: 
+                      9999
+                       
+                      <Image
+                        fluid={false}
+                        rounded={false}
+                        roundedCircle={false}
+                        src={Object {}}
+                        thumbnail={false}
+                      >
+                        <img
+                          className=""
+                          src={Object {}}
+                        />
+                      </Image>
+                    </div>
+                  </Col>
+                </div>
+              </ForwardRef>
+              <ForwardRef
+                noGutters={false}
+              >
+                <div
+                  className="row"
+                >
+                  <Col>
+                    <div
+                      className="col"
+                    />
+                  </Col>
+                  <Col>
+                    <div
+                      className="col"
+                    />
+                  </Col>
+                </div>
+              </ForwardRef>
+            </div>
+          </Col>
+        </div>
+      </ForwardRef>
+      <ForwardRef
+        noGutters={false}
+      >
+        <div
+          className="row"
+        >
+          <Col>
+            <div
+              className="col"
+            >
+              <Button
+                active={false}
+                className="no-borders"
+                disabled={false}
+                id="switchImg"
+                onClick={[MockFunction]}
+                type="button"
+                variant="primary"
+              >
+                <button
+                  className="no-borders btn btn-primary"
+                  disabled={false}
+                  id="switchImg"
+                  onClick={[MockFunction]}
+                  type="button"
+                >
+                  <Image
+                    fluid={false}
+                    rounded={false}
+                    roundedCircle={false}
+                    src={Object {}}
+                    thumbnail={false}
+                  >
+                    <img
+                      className=""
+                      src={Object {}}
+                    />
+                  </Image>
+                </button>
+              </Button>
+            </div>
+          </Col>
+          <Col>
+            <div
+              className="col"
+            >
+              <Button
+                active={false}
+                disabled={false}
+                id="favBtn"
+                onClick={[MockFunction]}
+                type="button"
+                variant="primary"
+              >
+                <button
+                  className="btn btn-primary"
+                  disabled={false}
+                  id="favBtn"
+                  onClick={[MockFunction]}
+                  type="button"
+                >
+                  <Image
+                    fluid={false}
+                    rounded={false}
+                    roundedCircle={false}
+                    src={Object {}}
+                    thumbnail={false}
+                  >
+                    <img
+                      className=""
+                      src={Object {}}
+                    />
+                  </Image>
+                </button>
+              </Button>
+            </div>
+          </Col>
+        </div>
+      </ForwardRef>
+    </div>
+  </Container>
+</CardDetail>
+`;
