@@ -248,9 +248,11 @@ exports[`CardDetail matches the snapshot 1`] = `
               </Button>
             </div>
           </Col>
-          <Col>
+          <Col
+            sm="2"
+          >
             <div
-              className="col"
+              className="col-sm-2"
             >
               <Button
                 active={false}
