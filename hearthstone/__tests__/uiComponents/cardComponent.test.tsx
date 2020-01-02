@@ -14,8 +14,7 @@ describe('Card Component(unconnected)', () => {
     });
 
     it('switches the image onClick on changeImageButton', () => {
-        // Buttons will be 2 because also the modal of the card detail view will be rendered.
-        const buttons = component.find("#switchImg").at(0);
+        const buttons = component.find("#switchImg");
         const img = component.find(Card.Img);
         expect((component.state() as CardState).goldImg).toBeFalsy();
         buttons.simulate('click');
@@ -24,15 +23,14 @@ describe('Card Component(unconnected)', () => {
 
     it('disables the button if the card has no img', () => {
         const noImgComponent: ShallowWrapper = shallow(<CardComponent card={noImgCard} dispatchSaveCard={dispatchSaveCard}/>)
-        // Buttons will be 2 because also the modal of the card detail view will be rendered.
-        const buttons = noImgComponent.find("#switchImg").at(0)
-        expect(buttons.prop('disabled')).toBeTruthy()
+        const buttons = noImgComponent.find("#switchImg");
+        expect(buttons.prop('disabled')).toBeTruthy();
     });
 
     it('changes the value of isOpen property on the state', () => {
-        const imageButton = component.find(Card.Img)
-        expect((component.state() as any)['isOpen']).toBeFalsy()
-        imageButton.simulate('click')
-        expect((component.state() as any)['isOpen']).toBeTruthy()
+        const imageButton = component.find(Card.Img);
+        expect((component.state() as any)['isOpen']).toBeFalsy();
+        imageButton.simulate('click');
+        expect((component.state() as any)['isOpen']).toBeTruthy();
     });
 });
