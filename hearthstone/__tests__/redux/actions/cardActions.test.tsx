@@ -120,7 +120,7 @@ describe('Card Actions', () => {
             spy.mockClear();
             store = generateMockStore({card: {...initialState, cards: cards}});
             store.clearActions();
-            await store.dispatch(fromCard.dispatchFilter(filter, filterKey))
+            await store.dispatch(fromCard.dispatchFilter(filter, filterKey, CardSet))
         });
 
         it("dispatches the right action", () => {
