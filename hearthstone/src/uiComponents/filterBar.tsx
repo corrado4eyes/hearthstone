@@ -5,13 +5,14 @@ import '../styles/filterBar.css';
 
 import logo from '../assets/hearthstone-mini-logo.png';
 import shinyLogo from '../assets/hearthstone-mini-logo-shiny.png';
-import filterBarImg from '../assets/navBar.png';
 import { CardSet } from '../model/cardSet';
 import { Rarity } from '../model/rarity';
 import {dispatchFilter, dispatchFilterByName} from '../redux/actions/cardActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../redux/reducers/mainReducer';
+import { CardClass } from '../model/class';
+import { CardType } from '../model/cardType';
 const filters: Filter[] = [{
     name: "Card Set",
     enum: CardSet,
@@ -23,6 +24,18 @@ const filters: Filter[] = [{
     enum: Rarity,
     id: "rarityFilter",
     key: "rarity"
+},
+{
+    name: "Class",
+    enum: CardClass,
+    id: "classFilter",
+    key: "playerClass"
+},
+{
+    name: "Type",
+    enum: CardType,
+    id: "typeFilter",
+    key: "type"
 }]
 
 interface Filter {
@@ -63,14 +76,8 @@ export class FilterBar extends React.PureComponent<Props, OwnState> {
         }
     }
 
-    onFilterSelected = (filter: any, filterKey: string) => {
-
-        if(Object.values(CardSet).includes(filter) || Object.values(Rarity).includes(filter)){
-            this.props.dispatchFilter((filter as CardSet), filterKey);
-        } else{
-            console.error("filter not found");
-            throw("Not yet implemented.");
-        }
+    onFilterSelected = (filter: any, filterKey: string, type: any) => {
+        this.props.dispatchFilter((filter as CardSet), filterKey, type);
     }
 
     onFilterByName = (e: any) => {
@@ -100,12 +107,13 @@ export class FilterBar extends React.PureComponent<Props, OwnState> {
                                     filters.map((el, i) => {
                                         return (
                                             <Col key={i}>
-                                                <NavDropdown title={this.props.filters[el.key]} id={el.id} key={el.id}> 
+                                                <NavDropdown title={el.name} 
+                                                id={el.id} key={el.id}> 
                                             {
                                                 Object.values(el.enum).map((value) => {
                                                     return <NavDropdown.Item 
-                                                            key={value as string} 
-                                                            onClick={this.onFilterSelected.bind(this, value, el.key)}
+                                                            key={value as string}
+                                                            onClick={this.onFilterSelected.bind(this, value, el.key, el.enum)}
                                                             className="navbar-font navbar-item">
                                                                 {value as string}
                                                             </NavDropdown.Item>
