@@ -2,6 +2,8 @@ import {CardActionsType, CardActions} from '../actions/cardActions';
 import Card from '../../model/card';
 import { CardSet } from '../../model/cardSet';
 import { Rarity } from '../../model/rarity';
+import { CardClass } from '../../model/class';
+import { CardType } from '../../model/cardType';
 
 export interface State {
     cards: Card[]
@@ -20,6 +22,8 @@ export const initialState = {
     filters: {
         cardSet: CardSet.Basic,
         rarity: Rarity.Free,
+        playerClass: CardClass.Druid,
+        type: CardType.Hero
     },
     filteredCards: []
 }
