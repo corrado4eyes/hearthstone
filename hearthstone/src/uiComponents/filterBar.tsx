@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { RootState } from '../redux/reducers/mainReducer';
 import { CardClass } from '../model/class';
 import { CardType } from '../model/cardType';
+import { Mechanic } from '../model/mechanic';
 const filters: Filter[] = [{
     name: "Card Set",
     enum: CardSet,
@@ -36,6 +37,12 @@ const filters: Filter[] = [{
     enum: CardType,
     id: "typeFilter",
     key: "type"
+},
+{
+    name: "Mechanics",
+    enum: Mechanic,
+    id: "mechanicFilter",
+    key: "mechanics"
 }]
 
 interface Filter {
