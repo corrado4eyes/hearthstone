@@ -8,6 +8,7 @@ import { FirebaseCardService } from "../../firebase/firebaseCardService";
 import CardService from "../../services/cardService";
 import { CardClass } from "../../model/class";
 import { CardType } from "../../model/cardType";
+import { Mechanic } from "../../model/mechanic";
 
 export enum CardActions {
     onSyncCards = "onSyncCards",
@@ -68,10 +69,11 @@ export type CardActionsType = onSyncCardsAction |
                               OnSaveCardSucceedAction |
                               OnSaveCardFailedAction;
 
-type CardFilters = CardSet | 
+export type CardFilters = CardSet | 
                    Rarity | 
                    CardClass | 
-                   CardType;
+                   CardType|
+                   Mechanic;
 
 export const onSyncCardsConstructor = (): onSyncCardsAction => {
     return {
