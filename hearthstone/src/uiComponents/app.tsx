@@ -36,6 +36,8 @@ type Props = StateProps & ActionProps;
 export class App extends React.PureComponent<Props, {}> {
     
     componentDidMount(){
+        // Added to avoid that the limit in firestore is exceeded. 
+        // Remove this.props.cardSet to load all the cards.
         this.props.dispatchSyncCard(this.props.cardSet)
     }
 
