@@ -6,6 +6,9 @@ import { CardSet } from "../../model/cardSet";
 import { Rarity } from "../../model/rarity";
 import { FirebaseCardService } from "../../firebase/firebaseCardService";
 import CardService from "../../services/cardService";
+import { CardClass } from "../../model/class";
+import { CardType } from "../../model/cardType";
+import { Mechanic } from "../../model/mechanic";
 
 export enum CardActions {
     onSyncCards = "onSyncCards",
@@ -34,7 +37,7 @@ export interface onSyncCardsFailedAction extends Action {
 
 export interface OnSubmitFilterAction extends Action {
     type: CardActions.onSubmitFilter
-    filter: CardSet | Rarity
+    filter: CardFilters
     filterKey: string
 }
 
@@ -66,6 +69,12 @@ export type CardActionsType = onSyncCardsAction |
                               OnSaveCardSucceedAction |
                               OnSaveCardFailedAction;
 
+export type CardFilters = CardSet | 
+                   Rarity | 
+                   CardClass | 
+                   CardType|
+                   Mechanic;
+
 export const onSyncCardsConstructor = (): onSyncCardsAction => {
     return {
         type: CardActions.onSyncCards
@@ -86,7 +95,7 @@ export const onSyncCardsFailedConstructor = (error: any): onSyncCardsFailedActio
     }
 }
 
-export const onSubmitFilterConstructor = (filter: CardSet | Rarity, filterKey: string): OnSubmitFilterAction => {
+export const onSubmitFilterConstructor = (filter: CardFilters, filterKey: string): OnSubmitFilterAction => {
     return {
         type: CardActions.onSubmitFilter,
         filter,
@@ -163,13 +172,13 @@ export const checkIfCached = (cardSet: CardSet, state: RootState) => {
     return card.length > 0 ? true : false;
 }
 
-export const dispatchFilter = (filter: CardSet | Rarity, filterKey: string) => {
+export const dispatchFilter = (filter: CardFilters, filterKey: string, enumType: any) => {
     return (dispatch: Dispatch<CardActionsType>, getState: () => RootState, serviceFactory: ServiceFactory) => {
         const cardService = serviceFactory.getFirebaseCardService()
         const state = getState()
         // If the filter is about the Rarity
-        if((Rarity as any)[filter]) {
-            return dispatch(onSubmitFilterConstructor((filter as Rarity), filterKey));
+        if(enumType != CardSet) {
+            return dispatch(onSubmitFilterConstructor((filter as CardFilters), filterKey));
         }
         const cardSet = (filter as CardSet)
         if(checkIfCached((filter as CardSet), state)) {

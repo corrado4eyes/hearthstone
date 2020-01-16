@@ -1,7 +1,10 @@
-import {CardActionsType, CardActions} from '../actions/cardActions';
+import {CardActionsType, CardActions, CardFilters, OnSubmitFilterAction} from '../actions/cardActions';
 import Card from '../../model/card';
 import { CardSet } from '../../model/cardSet';
 import { Rarity } from '../../model/rarity';
+import { CardClass } from '../../model/class';
+import { CardType } from '../../model/cardType';
+import { Mechanic } from '../../model/mechanic';
 
 export interface State {
     cards: Card[]
@@ -20,6 +23,9 @@ export const initialState = {
     filters: {
         cardSet: CardSet.Basic,
         rarity: Rarity.Free,
+        playerClass: CardClass.Druid,
+        type: CardType.Hero,
+        mechanics: Mechanic.Taunt
     },
     filteredCards: []
 }
@@ -31,6 +37,29 @@ const updateCards = (array: Card[], updatedCard: Card) => {
         else
             return card
     }) 
+}
+const filterMechanics = (cards: Card[], action: OnSubmitFilterAction) => {
+    let data: Card[] = []
+    cards = cards.filter((el: Card) => el.mechanics)
+        cards.forEach((el: Card) => {
+            if(el.mechanics) {
+                el.mechanics.map((mechanic: any) => {
+                    if(mechanic.name === action.filter) {
+                        data.push(el)
+                    }
+                })
+            }
+        });
+        return data
+}
+
+const filterCards = (action: OnSubmitFilterAction, cards: Card[], filter: any): Card[] => {
+    
+    if(action.filterKey === "mechanics"){
+        return filterMechanics(cards, action)
+    } else {
+        return cards.filter((el: Card) => (el as any)[action.filterKey] === filter[action.filterKey]);
+    }
 }
 
 export const reducer = (state: State = initialState, action: CardActionsType) => {
@@ -56,8 +85,8 @@ export const reducer = (state: State = initialState, action: CardActionsType) =>
             });
         case CardActions.onSubmitFilter: 
             const newFilter = Object.assign({}, stateCopy.filters, {[action.filterKey]: action.filter});
-            filteredCards = stateCopy.cards.filter((el: Card) => (el as any)[action.filterKey] === newFilter[action.filterKey]);
-                return Object.assign({}, state, {
+            filteredCards = filterCards(action, stateCopy.cards, newFilter);
+            return Object.assign({}, state, {
                 filteredCards: filteredCards,
                 filters: newFilter
             });
