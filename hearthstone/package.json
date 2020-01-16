@@ -61,7 +61,7 @@
     ]
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --content-base ./public",
+    "start": "webpack-dev-server --inline --content-base ./dist",
     "build": "webpack",
     "test": "jest",
     "eject": "react-scripts eject"
