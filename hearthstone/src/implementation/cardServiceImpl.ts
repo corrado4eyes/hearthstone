@@ -7,19 +7,25 @@ import { CardSet } from "../model/cardSet";
 
 @injectable()
 export default class CardsServiceImpl implements CardService {
-    
+    cards: Card[]; 
+
+    constructor() {
+        this.cards = this.readCards()
+    }
+
     getByCardSet(cardSet: CardSet): Promise<Card[]> {
-        throw new Error("Method not implemented.");
+        return Promise.resolve(this.cards.filter((card: Card) => card.cardSet === cardSet));
     }
 
     save(card: Card): Promise<boolean> {
-        throw new Error("Method not implemented.");
+        return Promise.resolve(true)
     }    
     get(cardId: string): Promise<Card> {
-        throw new Error("Method not implemented.");
+        const card: Card = this.cards.filter((card: Card) => card.cardId === cardId)[0]
+        return Promise.resolve(card);
     }
     getAll(): Promise<Card[]> {
-        return Promise.resolve(this.readCards());
+        return Promise.resolve(this.cards);
     }
 
     private readonly readCards = (): Card[] => {
