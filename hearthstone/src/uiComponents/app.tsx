@@ -39,7 +39,7 @@ export class App extends React.PureComponent<Props, {}> {
         // Added to avoid that the limit in firestore is exceeded. 
         // Remove this.props.cardSet to load all the cards.
         // this.props.dispatchSyncCard(this.props.cardSet)
-        this.props.dispatchSyncCard()
+        this.props.dispatchSyncCard(this.props.cardSet)
     }
 
     render(){
